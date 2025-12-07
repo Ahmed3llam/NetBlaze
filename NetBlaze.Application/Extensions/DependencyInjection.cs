@@ -10,6 +10,8 @@ namespace NetBlaze.Application.Extensions
         public static void AddApplicationServices(this IHostApplicationBuilder builder)
         {
             builder.Services.AddScoped<ISampleService, SampleService>();
+            builder.Services.AddScoped<IAuthService, AuthService>();
+            builder.Services.AddScoped<IAttendService, AttendService>();
         }
     }
 }

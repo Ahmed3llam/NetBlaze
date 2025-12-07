@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NetBlaze.Infrastructure.Data.DatabaseContext;
 
@@ -11,9 +12,11 @@ using NetBlaze.Infrastructure.Data.DatabaseContext;
 namespace NetBlaze.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251204134235_addSystemEntities")]
+    partial class addSystemEntities
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -622,7 +625,7 @@ namespace NetBlaze.Infrastructure.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<long>("Id"));
 
-                    b.Property<DateTime?>("AlternativeDate")
+                    b.Property<DateTimeOffset>("AlternativeDate")
                         .HasColumnType("datetime(6)");
 
                     b.Property<DateTimeOffset>("CreatedAt")
@@ -632,7 +635,7 @@ namespace NetBlaze.Infrastructure.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("varchar(500)");
 
-                    b.Property<int?>("Day")
+                    b.Property<int>("Day")
                         .HasColumnType("int");
 
                     b.Property<DateTimeOffset?>("DeletedAt")
@@ -643,6 +646,7 @@ namespace NetBlaze.Infrastructure.Migrations
                         .HasColumnType("varchar(500)");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<bool>("IsActive")
@@ -658,7 +662,7 @@ namespace NetBlaze.Infrastructure.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("varchar(500)");
 
-                    b.Property<DateTime?>("VacationDate")
+                    b.Property<DateTimeOffset>("VacationDate")
                         .HasColumnType("datetime(6)");
 
                     b.Property<int>("VacationType")

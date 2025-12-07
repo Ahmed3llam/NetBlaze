@@ -70,5 +70,21 @@ namespace NetBlaze.Infrastructure.InfraServices
 
             return new GetTokenValidationResultResponseDto(false);
         }
+
+        public long? GetSidFromToken(string token)
+        {
+            if (string.IsNullOrWhiteSpace(token))
+                return null;
+
+            var handler = new JwtSecurityTokenHandler();
+            var jwt = handler.ReadJwtToken(token);
+
+            var sidValue = jwt.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Sid)?.Value;
+
+            if (long.TryParse(sidValue, out var sid))
+                return sid;
+
+            return null;
+        }
     }
 }

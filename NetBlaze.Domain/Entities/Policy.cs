@@ -1,5 +1,6 @@
 ﻿using NetBlaze.Domain.Common;
 using NetBlaze.SharedKernel.Enums;
+using NetBlaze.SharedKernel.HelperUtilities.General;
 
 namespace NetBlaze.Domain.Entities
 {
@@ -18,5 +19,18 @@ namespace NetBlaze.Domain.Entities
         // Navigational Properties
 
         public ICollection<AttendancePolicyAction> AttendancePolicies { get; set; } = [];
+
+
+        // Domain Methods
+
+        public static Policy Create<TDto>(TDto policyEntityDto) where TDto : class
+        {
+            return ReflectionMapper.MapToNew<TDto, Policy>(policyEntityDto);
+        }
+
+        public void Update<TDto>(TDto policyEntityDto) where TDto : class
+        {
+            this.MapToExisting(policyEntityDto);
+        }
     }
 }

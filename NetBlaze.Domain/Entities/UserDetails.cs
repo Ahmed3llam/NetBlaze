@@ -5,6 +5,7 @@ namespace NetBlaze.Domain.Entities
     public class UserDetails
     {
         // Properties
+        public long Id { get; set; }
 
         public Guid Key { get; set; }
 

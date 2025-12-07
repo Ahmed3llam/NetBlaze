@@ -7,7 +7,7 @@ namespace NetBlaze.Domain.Entities
     {
         // Properties
 
-        public DateTimeOffset Date { get; set; }
+        public DateOnly Date { get; set; }
 
         public TimeSpan Time { get; set; }
 

@@ -192,4 +192,49 @@
   <data name="UserNotFound" xml:space="preserve">
     <value>المستخدم غير موجود</value>
   </data>
+  <data name="AttendanceRecordedSuccessfully" xml:space="preserve">
+    <value>تم تسجيل الحضور بنجاح. شكراً</value>
+  </data>
+  <data name="DayIsVaction" xml:space="preserve">
+    <value>اليوم هو يوم إجازة</value>
+  </data>
+  <data name="NoPolicyFound" xml:space="preserve">
+    <value>لا يوجد تلك السياسة</value>
+  </data>
+  <data name="PolicyAddedSuccessfully" xml:space="preserve">
+    <value>تمت إضافة السياسة بنجاح</value>
+  </data>
+  <data name="PolicyDeletedSuccessfully" xml:space="preserve">
+    <value>تم حذف السياسة بنجاح</value>
+  </data>
+  <data name="PolicyNotFound" xml:space="preserve">
+    <value>السياسة غير موجودة</value>
+  </data>
+  <data name="PolicyNotModified" xml:space="preserve">
+    <value>لم تطرأ أي تغييرات على السياسة</value>
+  </data>
+  <data name="PolicyUpdatedSuccessfully" xml:space="preserve">
+    <value>تم تحديث السياسة بنجاح</value>
+  </data>
+  <data name="UserDataNotModified" xml:space="preserve">
+    <value>لم تطرأ أي تغييرات على بيانات المستخدم</value>
+  </data>
+  <data name="UserDataUpdatedSuccessfully" xml:space="preserve">
+    <value>تم تحديث بيانات المستخدم بنجاح</value>
+  </data>
+  <data name="VacationAddedSuccessfully" xml:space="preserve">
+    <value>تمت إضافة الاجازة بنجاح</value>
+  </data>
+  <data name="VacationDeletedSuccessfully" xml:space="preserve">
+    <value>تم حذف الاجازة بنجاح</value>
+  </data>
+  <data name="VacationNotFound" xml:space="preserve">
+    <value>الاجازة غير موجودة</value>
+  </data>
+  <data name="VacationNotModified" xml:space="preserve">
+    <value>لم تطرأ أي تغييرات على الاجازة</value>
+  </data>
+  <data name="VacationUpdatedSuccessfully" xml:space="preserve">
+    <value>تم تحديث الاجازة بنجاح</value>
+  </data>
 </root>

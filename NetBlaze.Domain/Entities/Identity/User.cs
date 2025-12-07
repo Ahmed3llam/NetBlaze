@@ -6,7 +6,7 @@ namespace NetBlaze.Domain.Entities.Identity
     {
         // Properties
 
-        public string DisplayName { get; private set; } = null!;
+        public string DisplayName { get; set; } = null!;
 
         public DateTimeOffset CreatedAt { get; private set; }
 
@@ -24,9 +24,9 @@ namespace NetBlaze.Domain.Entities.Identity
 
         public bool IsDeleted { get; private set; }
 
-        public long DepartmentId { get; private set; }
+        public long DepartmentId { get; set; }
 
-        public long? ManagerId { get; private set; }
+        public long? ManagerId { get; set; }
         
 
         // Navigational Properties

@@ -7,5 +7,7 @@ namespace NetBlaze.Application.Interfaces.General
         string GenerateToken(GenerateTokenRequestDto generateTokenRequestDto);
 
         Task<GetTokenValidationResultResponseDto> ValidateTokenForUserAsync(string? bearerToken);
+
+        long? GetSidFromToken(string token);
     }
 }

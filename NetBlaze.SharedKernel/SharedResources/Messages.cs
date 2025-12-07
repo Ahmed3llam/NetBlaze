@@ -51,5 +51,35 @@
         public static string DepartmentNotFound => ResourceManager.GetString(nameof(DepartmentNotFound), resourceCulture)!;
 
         public static string ManagerNotFound => ResourceManager.GetString(nameof(ManagerNotFound), resourceCulture)!;
+
+        public static string AttendanceRecordedSuccessfully => ResourceManager.GetString(nameof(AttendanceRecordedSuccessfully), resourceCulture)!;
+
+        public static string NoPolicyFound => ResourceManager.GetString(nameof(NoPolicyFound), resourceCulture)!;
+
+        public static string PolicyAddedSuccessfully => ResourceManager.GetString(nameof(PolicyAddedSuccessfully), resourceCulture)!;
+
+        public static string PolicyUpdatedSuccessfully => ResourceManager.GetString(nameof(PolicyUpdatedSuccessfully), resourceCulture)!;
+
+        public static string PolicyNotModified => ResourceManager.GetString(nameof(PolicyNotModified), resourceCulture)!;
+
+        public static string PolicyNotFound => ResourceManager.GetString(nameof(PolicyNotFound), resourceCulture)!;
+
+        public static string PolicyDeletedSuccessfully => ResourceManager.GetString(nameof(PolicyDeletedSuccessfully), resourceCulture)!;
+
+        public static string VacationAddedSuccessfully => ResourceManager.GetString(nameof(VacationAddedSuccessfully), resourceCulture)!;
+
+        public static string VacationUpdatedSuccessfully => ResourceManager.GetString(nameof(VacationUpdatedSuccessfully), resourceCulture)!;
+
+        public static string VacationNotModified => ResourceManager.GetString(nameof(VacationNotModified), resourceCulture)!;
+
+        public static string VacationNotFound => ResourceManager.GetString(nameof(VacationNotFound), resourceCulture)!;
+
+        public static string VacationDeletedSuccessfully => ResourceManager.GetString(nameof(VacationDeletedSuccessfully), resourceCulture)!;
+
+        public static string UserDataUpdatedSuccessfully => ResourceManager.GetString(nameof(UserDataUpdatedSuccessfully), resourceCulture)!;
+
+        public static string UserDataNotModified => ResourceManager.GetString(nameof(UserDataNotModified), resourceCulture)!;
+
+        public static string DayIsVaction => ResourceManager.GetString(nameof(DayIsVaction), resourceCulture)!;
     }
 }

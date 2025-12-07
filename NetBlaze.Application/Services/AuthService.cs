@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using NetBlaze.Application.Interfaces.General;
 using NetBlaze.Application.Interfaces.ServicesInterfaces;
-using NetBlaze.Domain.Entities;
 using NetBlaze.Domain.Entities.Identity;
 using NetBlaze.SharedKernel.Dtos.General;
 using NetBlaze.SharedKernel.Dtos.User.Request;
@@ -18,21 +16,16 @@ namespace NetBlaze.Application.Services
         private readonly UserManager<User> _userManager;
         private readonly RoleManager<Role> _roleManager;
         public readonly IJwtBearerService _jwtBearerService;
-        private readonly SignInManager<User> _signInManager;
-        private readonly IUnitOfWork _unitOfWork;
+        //private readonly IUnitOfWork _unitOfWork;
 
         public AuthService(
             UserManager<User> userManager, 
             RoleManager<Role> roleManager,
-            IJwtBearerService jwtBearerService,
-            SignInManager<User> signInManager,
-            IUnitOfWork unitOfWork)
+            IJwtBearerService jwtBearerService)
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _jwtBearerService = jwtBearerService;
-            _signInManager = signInManager;
-            _unitOfWork = unitOfWork;
         }
 
         public async Task<ApiResponse<long>> Register(RegisterUserRequestDto registerUserRequestDto, CancellationToken cancellationToken = default)
@@ -42,33 +35,14 @@ namespace NetBlaze.Application.Services
             if (existingEmail != null)
                 return ApiResponse<long>.ReturnFailureResponse(Messages.EmailAlreadyExists, HttpStatusCode.BadRequest);
 
-            var existingPhone = await _userManager.Users.AnyAsync(x => x.PhoneNumber == registerUserRequestDto.PhoneNumber);
-
-            if (existingPhone)
-                return ApiResponse<long>.ReturnFailureResponse(Messages.PhoneAlreadyExists, HttpStatusCode.BadRequest);
-
-            var departmentFound = await _unitOfWork
-                .Repository.AnyAsync<Department>(d => d.Id == registerUserRequestDto.DepartmentId);
-
-            if (!departmentFound)
-                return ApiResponse<long>.ReturnFailureResponse(Messages.DepartmentNotFound, HttpStatusCode.BadRequest);
-
-            if (registerUserRequestDto.ManagerId > 0)
-            {
-                var managerFound = await _userManager
-                    .Users
-                    .AnyAsync(x => x.Id == registerUserRequestDto.ManagerId, cancellationToken);
-
-                if (!managerFound)
-                    return ApiResponse<long>.ReturnFailureResponse(Messages.ManagerNotFound, HttpStatusCode.BadRequest);
-            }
-
             User newUser = new User()
             {
-                //DisplayName = registerUserRequestDto.FullName,
+                DisplayName = registerUserRequestDto.FullName,
                 Email = registerUserRequestDto.Email,
                 PhoneNumber = registerUserRequestDto.PhoneNumber,
-                UserName = registerUserRequestDto.Email
+                UserName = registerUserRequestDto.Email,
+                ManagerId = registerUserRequestDto.ManagerId,
+                DepartmentId = registerUserRequestDto.DepartmentId
             };
 
             var result = await _userManager.CreateAsync(newUser, registerUserRequestDto.Password);
@@ -107,7 +81,7 @@ namespace NetBlaze.Application.Services
                 user.Id, 
                 user.UserName, 
                 user.Email,
-                roles.ToList());
+                roles?.ToList());
 
             var token = _jwtBearerService.GenerateToken(tokenRequestDto);
 
@@ -118,8 +92,6 @@ namespace NetBlaze.Application.Services
                 token, 
                 user.Email, 
                 user.PhoneNumber);
-
-            await _signInManager.SignInAsync(user, loginUserRequestDto.RememberMe);
 
             return ApiResponse<LoginUserResponseDto>.ReturnSuccessResponse(response, Messages.LoginSuccessfully);
         }
