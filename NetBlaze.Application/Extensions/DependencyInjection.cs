@@ -12,6 +12,9 @@ namespace NetBlaze.Application.Extensions
             builder.Services.AddScoped<ISampleService, SampleService>();
             builder.Services.AddScoped<IAuthService, AuthService>();
             builder.Services.AddScoped<IAttendService, AttendService>();
+            builder.Services.AddScoped<IUserService, UserService>();
+            builder.Services.AddScoped<IVacationService, VacationService>();
+            builder.Services.AddScoped<IPolicyService, PolicyService>();
         }
     }
 }

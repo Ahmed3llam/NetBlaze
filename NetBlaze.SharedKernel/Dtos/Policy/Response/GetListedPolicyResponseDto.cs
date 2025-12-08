@@ -9,6 +9,7 @@ namespace NetBlaze.SharedKernel.Dtos.Policy.Response
         DateTime WorkEndTime,
         PolicyType PolicyType,
         int CriticalHours,
-        double Action
+        double Action,
+        bool IsActive
     );
 }

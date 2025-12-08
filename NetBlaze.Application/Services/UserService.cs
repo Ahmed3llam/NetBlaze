@@ -42,16 +42,9 @@ namespace NetBlaze.Application.Services
             if (!string.IsNullOrEmpty(authorizationHeader) && authorizationHeader.StartsWith("Bearer "))
                 token = authorizationHeader.Substring("Bearer ".Length).Trim();
 
-
             var userId = _jwtBearerService.GetSidFromToken(token);
 
-            var user = await _unitOfWork
-                .Repository
-                .GetSingleAsync<User>(
-                    true,
-                    p => p.Id == userId,
-                    cancellationToken
-                );
+            var user = await _userManager.FindByIdAsync(userId.ToString());
 
             if (user == null)
                 return ApiResponse<long>.ReturnFailureResponse(Messages.UserNotFound, HttpStatusCode.NotFound);
@@ -69,20 +62,17 @@ namespace NetBlaze.Application.Services
                     return ApiResponse<long>.ReturnFailureResponse(Messages.EmailAlreadyExists, HttpStatusCode.NotFound);
             }
 
+            //ToDo: update only sent data
+            user.UserName = updateUserDataRequestDto.Email;
             user.Email = updateUserDataRequestDto.Email;
             user.PhoneNumber = updateUserDataRequestDto.PhoneNumber;
             user.DisplayName = updateUserDataRequestDto.FullName;
             user.ManagerId = updateUserDataRequestDto.ManagerId;
             user.DepartmentId = updateUserDataRequestDto.DepartmentId;
 
-            var rowsAffected = await _unitOfWork.Repository.CompleteAsync(cancellationToken);
+            await _userManager.UpdateAsync(user);
 
-            if (rowsAffected > 0)
-            {
-                return ApiResponse<long>.ReturnSuccessResponse(user.Id, Messages.UserDataUpdatedSuccessfully);
-            }
-
-            return ApiResponse<long>.ReturnSuccessResponse(user.Id, Messages.UserDataNotModified, HttpStatusCode.NotModified);
+            return ApiResponse<long>.ReturnSuccessResponse(user.Id, Messages.UserDataUpdatedSuccessfully);
         }
 
         public async Task<ApiResponse<long>> UpdateUserRoleAsync(UpdateUserRoleRequestDto updateUserRoleRequestDto, CancellationToken cancellationToken = default)
@@ -101,7 +91,7 @@ namespace NetBlaze.Application.Services
 
             var existingUserRole = user.UserRoles.FirstOrDefault();
             if (existingUserRole != null)
-                _unitOfWork.Repository.HardDeleteAsync(existingUserRole);
+                await _unitOfWork.Repository.HardDeleteAsync(existingUserRole);
 
             var role = await _roleManager.FindByIdAsync(updateUserRoleRequestDto.RoleId.ToString());
 
@@ -111,15 +101,6 @@ namespace NetBlaze.Application.Services
             await _userManager.AddToRoleAsync(user, role.Name);
 
             return ApiResponse<long>.ReturnSuccessResponse(user.Id, Messages.UserDataUpdatedSuccessfully);
-
-            //var rowsAffected = await _unitOfWork.Repository.CompleteAsync(cancellationToken);
-
-            //if (rowsAffected > 0)
-            //{
-            //    return ApiResponse<long>.ReturnSuccessResponse(user.Id, Messages.UserDataUpdatedSuccessfully);
-            //}
-
-            //return ApiResponse<long>.ReturnSuccessResponse(user.Id, Messages.UserDataNotModified, HttpStatusCode.NotModified);
         }
     }
 }

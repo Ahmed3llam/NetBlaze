@@ -1,13 +1,14 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NetBlaze.Application.Interfaces.ServicesInterfaces;
+using NetBlaze.Application.Mappings;
+using NetBlaze.SharedKernel.Dtos.General;
 using NetBlaze.SharedKernel.Dtos.Vacation.Requests;
 using NetBlaze.SharedKernel.Dtos.Vacation.Responses;
 using NetBlaze.SharedKernel.HelperUtilities.General;
 
 namespace NetBlaze.Api.Controllers
 {
-    [Authorize]
     public class VacationController : BaseNetBlazeController, IVacationService
     {
         private readonly IVacationService _vacationService;
@@ -18,14 +19,15 @@ namespace NetBlaze.Api.Controllers
         }
 
         [HttpGet("list")]
-        public IAsyncEnumerable<GetListedVacationResponseDto> GetListedVacations()
+        public Task<ApiResponse<PaginatedList<GetListedVacationResponseDto>>> GetListedVacations([FromQuery] PaginateRequestDto paginateRequestDto)
         {
-            return _vacationService.GetListedVacations();
+            return _vacationService.GetListedVacations(paginateRequestDto);
         }
 
-        public Task<ApiResponse<GetVacationResponseDto>> GetVacationAsync(long id, CancellationToken cancellationToken = default)
+        [HttpGet()]
+        public Task<ApiResponse<GetVacationResponseDto>> GetVacationByIdAsync(long id, CancellationToken cancellationToken = default)
         {
-            return _vacationService.GetVacationAsync(id, cancellationToken);
+            return _vacationService.GetVacationByIdAsync(id, cancellationToken);
         }
 
         [HttpPost("add")]
@@ -34,13 +36,13 @@ namespace NetBlaze.Api.Controllers
             return await _vacationService.AddVacationAsync(addVacationRequestDto, cancellationToken);
         }
 
-        [HttpPost("update")]
+        [HttpPut("update")]
         public Task<ApiResponse<object>> UpdateVacationAsync(UpdateVacationRequestDto updateVacationRequestDto, CancellationToken cancellationToken = default)
         {
             return _vacationService.UpdateVacationAsync(updateVacationRequestDto, cancellationToken);
         }
 
-        [HttpPost("delete")]
+        [HttpDelete("delete")]
         public async Task<ApiResponse<object>> DeleteVacationAsync(long id, CancellationToken cancellationToken = default)
         {
             return await _vacationService.DeleteVacationAsync(id, cancellationToken);

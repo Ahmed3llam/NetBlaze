@@ -6,6 +6,6 @@ namespace NetBlaze.Application.Interfaces.ServicesInterfaces
 {
     public interface IAttendService
     {
-        Task<ApiResponse<AttendUserResponseDto>> Attend(AttendUserRequestDto attendUserRequestDto, CancellationToken cancellationToken = default);
+        Task<ApiResponse<AttendUserResponseDto>> Attend(CancellationToken cancellationToken = default);
     }
 }

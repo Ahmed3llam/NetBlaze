@@ -6,7 +6,6 @@ using NetBlaze.SharedKernel.HelperUtilities.General;
 
 namespace NetBlaze.Api.Controllers
 {
-    [Authorize]
     public class UserController : BaseNetBlazeController, IUserService
     {
         private readonly IUserService _userService;

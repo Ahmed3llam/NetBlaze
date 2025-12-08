@@ -19,18 +19,5 @@ namespace NetBlaze.Domain.Entities
         // Navigational Properties
 
         public ICollection<AttendancePolicyAction> AttendancePolicies { get; set; } = [];
-
-
-        // Domain Methods
-
-        public static Policy Create<TDto>(TDto policyEntityDto) where TDto : class
-        {
-            return ReflectionMapper.MapToNew<TDto, Policy>(policyEntityDto);
-        }
-
-        public void Update<TDto>(TDto policyEntityDto) where TDto : class
-        {
-            this.MapToExisting(policyEntityDto);
-        }
     }
 }

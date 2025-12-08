@@ -15,9 +15,9 @@ namespace NetBlaze.SharedKernel.Dtos.Vacation.Requests
 
         public DayOfWeek? Day { get; set; }
 
-        public DateTimeOffset? VacationDate { get; set; }
+        public DateTime? VacationDate { get; set; }
 
-        public DateTimeOffset? AlternativeDate { get; set; }
+        public DateTime? AlternativeDate { get; set; }
 
         public string? Description { get; set; }
 

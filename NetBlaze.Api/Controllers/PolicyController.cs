@@ -1,13 +1,14 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NetBlaze.Application.Interfaces.ServicesInterfaces;
+using NetBlaze.Application.Mappings;
+using NetBlaze.SharedKernel.Dtos.General;
 using NetBlaze.SharedKernel.Dtos.Policy.Request;
 using NetBlaze.SharedKernel.Dtos.Policy.Response;
 using NetBlaze.SharedKernel.HelperUtilities.General;
 
 namespace NetBlaze.Api.Controllers
 {
-    [Authorize]
     public class PolicyController : BaseNetBlazeController, IPolicyService
     {
         private readonly IPolicyService _policyService;
@@ -18,30 +19,31 @@ namespace NetBlaze.Api.Controllers
         }
 
         [HttpGet("list")]
-        public IAsyncEnumerable<GetListedPolicyResponseDto> GetListedPolices()
+        public Task<ApiResponse<PaginatedList<GetListedPolicyResponseDto>>> GetListedPolices([FromQuery] PaginateRequestDto paginateRequestDto)
         {
-            return _policyService.GetListedPolices();
+            return _policyService.GetListedPolices(paginateRequestDto);
         }
 
-        public Task<ApiResponse<GetPolicyResponseDto>> GetPolicyAsync(long id, CancellationToken cancellationToken = default)
+        [HttpGet()]
+        public Task<ApiResponse<GetPolicyResponseDto>> GetPolicyByIdAsync(long id, CancellationToken cancellationToken = default)
         {
-            return _policyService.GetPolicyAsync(id, cancellationToken);
+            return _policyService.GetPolicyByIdAsync(id, cancellationToken);
         }
 
         [HttpPost("add")]
-        public async Task<ApiResponse<object>> AddPolicyAsync(AddPolicyRequestDto addPolicyRequestDto, CancellationToken cancellationToken = default)
+        public async Task<ApiResponse<long>> AddPolicyAsync(AddPolicyRequestDto addPolicyRequestDto, CancellationToken cancellationToken = default)
         {
             return await _policyService.AddPolicyAsync(addPolicyRequestDto, cancellationToken);
         }
 
-        [HttpPost("update")]
-        public Task<ApiResponse<object>> UpdatePolicyAsync(UpdatePolicyRequestDto updatePolicyRequestDto, CancellationToken cancellationToken = default)
+        [HttpPut("update")]
+        public Task<ApiResponse<long>> UpdatePolicyAsync(UpdatePolicyRequestDto updatePolicyRequestDto, CancellationToken cancellationToken = default)
         {
             return _policyService.UpdatePolicyAsync(updatePolicyRequestDto, cancellationToken);
         }
 
-        [HttpPost("delete")]
-        public async Task<ApiResponse<object>> DeletePolicyAsync(long id, CancellationToken cancellationToken = default)
+        [HttpDelete("delete")]
+        public async Task<ApiResponse<long>> DeletePolicyAsync(long id, CancellationToken cancellationToken = default)
         {
             return await _policyService.DeletePolicyAsync(id, cancellationToken);
         }
