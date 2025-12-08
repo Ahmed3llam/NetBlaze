@@ -81,5 +81,17 @@
         public static string UserDataNotModified => ResourceManager.GetString(nameof(UserDataNotModified), resourceCulture)!;
 
         public static string DayIsVaction => ResourceManager.GetString(nameof(DayIsVaction), resourceCulture)!;
+
+        public static string CannotReplyOnNow => ResourceManager.GetString(nameof(CannotReplyOnNow), resourceCulture)!;
+
+        public static string RandomCheckCreatedSuccessfully => ResourceManager.GetString(nameof(RandomCheckCreatedSuccessfully), resourceCulture)!;
+
+        public static string RandomCheckNotFound => ResourceManager.GetString(nameof(RandomCheckNotFound), resourceCulture)!;
+
+        public static string InCorrectOTP => ResourceManager.GetString(nameof(InCorrectOTP), resourceCulture)!;
+
+        public static string OtpExpired => ResourceManager.GetString(nameof(OtpExpired), resourceCulture)!;
+
+        public static string RecordedSuccessfully => ResourceManager.GetString(nameof(RecordedSuccessfully), resourceCulture)!;
     }
 }

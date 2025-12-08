@@ -15,13 +15,13 @@ namespace NetBlaze.Api.Controllers
             _userService = userService;
         }
 
-        [HttpPost("update-profile")]
+        [HttpPut("update-profile")]
         public async Task<ApiResponse<long>> UpdateUserDataAsync(UpdateUserDataRequestDto updateUserDataRequestDto, CancellationToken cancellationToken = default)
         {
             return await _userService.UpdateUserDataAsync(updateUserDataRequestDto, cancellationToken);
         }
 
-        [HttpPost("update-role")]
+        [HttpPut("update-role")]
         public async Task<ApiResponse<long>> UpdateUserRoleAsync(UpdateUserRoleRequestDto updateUserRoleRequestDto, CancellationToken cancellationToken = default)
         {
             return await _userService.UpdateUserRoleAsync(updateUserRoleRequestDto, cancellationToken);

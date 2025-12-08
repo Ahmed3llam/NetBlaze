@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using NetBlaze.Application.Interfaces.General;
 using NetBlaze.Application.Interfaces.ServicesInterfaces;
 using NetBlaze.Application.Services;
 
@@ -15,6 +16,7 @@ namespace NetBlaze.Application.Extensions
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IVacationService, VacationService>();
             builder.Services.AddScoped<IPolicyService, PolicyService>();
+            builder.Services.AddScoped<IRandomCheckService, RandomCheckService>();
         }
     }
 }

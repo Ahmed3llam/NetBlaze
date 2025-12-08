@@ -7,7 +7,7 @@ namespace NetBlaze.Domain.Entities
     {
         // Properties
 
-        public DateTimeOffset Date { get; set; }
+        public DateOnly Date { get; set; }
 
         public TimeSpan Time { get; set; }
 
@@ -15,10 +15,11 @@ namespace NetBlaze.Domain.Entities
 
         public long UserId { get; set; }
 
-        public DateTimeOffset ExpirationDate { get; set; }
+        public DateTime ExpirationDate { get; set; }
 
-        public bool IsReplied { get; set; }
+        public bool IsReplied { get; set; } = false;
 
+        public DateTime? RepliedDate { get; set; }
 
         // Navigational Properties
 

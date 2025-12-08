@@ -3,7 +3,6 @@ using NetBlaze.Application.Interfaces.ServicesInterfaces;
 using NetBlaze.Application.Mappings;
 using NetBlaze.Domain.Entities;
 using NetBlaze.SharedKernel.Dtos.General;
-using NetBlaze.SharedKernel.Dtos.Policy.Response;
 using NetBlaze.SharedKernel.Dtos.Vacation.Requests;
 using NetBlaze.SharedKernel.Dtos.Vacation.Responses;
 using NetBlaze.SharedKernel.HelperUtilities.General;
@@ -35,7 +34,9 @@ namespace NetBlaze.Application.Services
                         v.Description)
                 );
 
-            var result = await PaginatedList<GetListedVacationResponseDto>.CreateAsync(listedVacations, paginateRequestDto.PageNumber, paginateRequestDto.PageSize);
+            var result = await listedVacations.PaginatedListAsync(paginateRequestDto.PageNumber, paginateRequestDto.PageNumber);
+
+            //var result = await PaginatedList<GetListedVacationResponseDto>.CreateAsync(listedVacations, paginateRequestDto.PageNumber, paginateRequestDto.PageSize);
 
             return ApiResponse<PaginatedList<GetListedVacationResponseDto>>.ReturnSuccessResponse(result);
         }

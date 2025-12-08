@@ -237,4 +237,22 @@
   <data name="VacationUpdatedSuccessfully" xml:space="preserve">
     <value>Vacation updated successfully</value>
   </data>
+  <data name="CannotReplyOnNow" xml:space="preserve">
+    <value>Cannot Reply Now</value>
+  </data>
+  <data name="InCorrectOTP" xml:space="preserve">
+    <value>The OTP you entered is incorrect</value>
+  </data>
+  <data name="OtpExpired" xml:space="preserve">
+    <value>The OTP has expired.</value>
+  </data>
+  <data name="RandomCheckCreatedSuccessfully" xml:space="preserve">
+    <value>Random check created successfully</value>
+  </data>
+  <data name="RandomCheckNotFound" xml:space="preserve">
+    <value>Random check not found</value>
+  </data>
+  <data name="RecordedSuccessfully" xml:space="preserve">
+    <value>RecordedSuccessfully</value>
+  </data>
 </root>

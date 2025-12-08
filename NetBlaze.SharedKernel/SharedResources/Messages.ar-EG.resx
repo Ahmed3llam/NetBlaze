@@ -237,4 +237,22 @@
   <data name="VacationUpdatedSuccessfully" xml:space="preserve">
     <value>تم تحديث الاجازة بنجاح</value>
   </data>
+  <data name="CannotReplyOnNow" xml:space="preserve">
+    <value>لا يمكنك الرد الان</value>
+  </data>
+  <data name="InCorrectOTP" xml:space="preserve">
+    <value>رمز التحقق المدخل غير صحيح</value>
+  </data>
+  <data name="OtpExpired" xml:space="preserve">
+    <value>انتهت صلاحية رمز التحقق</value>
+  </data>
+  <data name="RandomCheckCreatedSuccessfully" xml:space="preserve">
+    <value>تم إضافة التحقق العشوائي بنجاح</value>
+  </data>
+  <data name="RandomCheckNotFound" xml:space="preserve">
+    <value>لم يتم العثور على التحقق العشوائي</value>
+  </data>
+  <data name="RecordedSuccessfully" xml:space="preserve">
+    <value>تم التسجيل بنجاح</value>
+  </data>
 </root>

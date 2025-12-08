@@ -17,5 +17,7 @@
         public const string Description = nameof(Description);
 
         public const string TEXT_DB_TYPE = "TEXT";
+
+        public const string RandomCheckExpiryInMinutes = "RandomCheck:ExpiryInMinutes";
     }
 }
