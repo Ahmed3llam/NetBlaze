@@ -3,8 +3,10 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using NetBlaze.Domain.Entities;
 using NetBlaze.Domain.Entities.Identity;
+using NetBlaze.Domain.Views;
 using NetBlaze.Infrastructure.Data.Configurations.MiscConfigurations;
 using System.Reflection;
+using System.Reflection.Emit;
 
 namespace NetBlaze.Infrastructure.Data.DatabaseContext
 {
@@ -29,7 +31,11 @@ namespace NetBlaze.Infrastructure.Data.DatabaseContext
         public DbSet<Vacation> Vacations => Set<Vacation>();
         public DbSet<RandomCheck> RandomChecks => Set<RandomCheck>();
 
-
+        #region Views
+        public DbSet<EmployeeAttendanceReport> EmployeeAttendanceReport { get; set; }
+        public DbSet<RandomCheckReport> RandomCheckReport { get; set; }
+        public DbSet<EmployeeLatenessReport> EmployeeLatenessReport { get; set; }
+        #endregion
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -39,6 +45,21 @@ namespace NetBlaze.Infrastructure.Data.DatabaseContext
             builder.ConfigureIdentityTablesNames();
 
             builder.SetGlobalIsDeletedFilterToAllEntities();
+
+            builder
+                .Entity<EmployeeAttendanceReport>()
+                .HasNoKey()
+                .ToView("EmployeeAttendanceReport");
+
+            builder
+                .Entity<RandomCheckReport>()
+                .HasNoKey()
+                .ToView("RandomCheckReport");
+
+            builder
+                .Entity<EmployeeLatenessReport>()
+                .HasNoKey()
+                .ToView("EmployeeLatenessReport");
         }
     }
 }

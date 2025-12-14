@@ -255,4 +255,13 @@
   <data name="RecordedSuccessfully" xml:space="preserve">
     <value>تم التسجيل بنجاح</value>
   </data>
+  <data name="ToShouldBeAfterDateOfFrom" xml:space="preserve">
+    <value>يجب أن يكون تاريخ النهاية أكبر من تاريخ البداية.</value>
+  </data>
+  <data name="PolicyAppliedSuccessfully" xml:space="preserve">
+    <value>تم تطبيق السياسة بنجاح</value>
+  </data>
+  <data name="PolicyRejectedSuccessfully" xml:space="preserve">
+    <value>تم رفض السياسة بنجاح</value>
+  </data>
 </root>

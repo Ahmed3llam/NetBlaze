@@ -33,7 +33,9 @@ namespace NetBlaze.Application.Services
             var existingEmail = await _userManager.FindByEmailAsync(registerUserRequestDto.Email);
 
             if (existingEmail != null)
+            {
                 return ApiResponse<long>.ReturnFailureResponse(Messages.EmailAlreadyExists, HttpStatusCode.BadRequest);
+            }
 
             User newUser = new User()
             {
@@ -48,12 +50,16 @@ namespace NetBlaze.Application.Services
             var result = await _userManager.CreateAsync(newUser, registerUserRequestDto.Password);
 
             if (!result.Succeeded)
+            {
                 return ApiResponse<long>.ReturnFailureResponse(Messages.RegistrationFailed, HttpStatusCode.NotFound);
+            }
 
             var role = await _roleManager.FindByIdAsync(registerUserRequestDto.RoleId.ToString());
 
             if (role == null)
+            {
                 return ApiResponse<long>.ReturnFailureResponse(Messages.RoleNotFound, HttpStatusCode.BadRequest);
+            }
 
             await _userManager.AddToRoleAsync(newUser, role.Name);
 
@@ -65,15 +71,21 @@ namespace NetBlaze.Application.Services
             var user = await _userManager.FindByEmailAsync(loginUserRequestDto.Email);
 
             if (user == null)
+            {
                 return ApiResponse<LoginUserResponseDto>.ReturnFailureResponse(Messages.UserNotFound, HttpStatusCode.NotFound);
+            }
 
             if (!user.IsActive || user.IsDeleted)
+            {
                 return ApiResponse<LoginUserResponseDto>.ReturnFailureResponse(Messages.UserIsNotActive, HttpStatusCode.BadRequest);
+            }
 
             var isPasswordValid = await _userManager.CheckPasswordAsync(user, loginUserRequestDto.Password);
 
             if (!isPasswordValid)
+            {
                 return ApiResponse<LoginUserResponseDto>.ReturnFailureResponse(Messages.InCorrectPassword, HttpStatusCode.BadRequest);
+            }
 
             var roles = await _userManager.GetRolesAsync(user);
 

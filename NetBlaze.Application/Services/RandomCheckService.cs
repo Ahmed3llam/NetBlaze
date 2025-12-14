@@ -2,9 +2,12 @@
 using Microsoft.Extensions.Configuration;
 using NetBlaze.Application.Interfaces.General;
 using NetBlaze.Application.Interfaces.ServicesInterfaces;
+using NetBlaze.Application.Mappings;
 using NetBlaze.Domain.Entities;
 using NetBlaze.Domain.Entities.Identity;
+using NetBlaze.Domain.Views;
 using NetBlaze.SharedKernel.Dtos.RandomCheck.Requests;
+using NetBlaze.SharedKernel.Dtos.RandomCheck.Response;
 using NetBlaze.SharedKernel.HelperUtilities.Constants;
 using NetBlaze.SharedKernel.HelperUtilities.General;
 using NetBlaze.SharedKernel.SharedResources;
@@ -15,7 +18,6 @@ namespace NetBlaze.Application.Services
     public class RandomCheckService : IRandomCheckService
     {
         private readonly IUnitOfWork _unitOfWork;
-        //private readonly IOTPService _oTPService;
         private readonly IConfiguration _config;
 
         public RandomCheckService(
@@ -71,13 +73,19 @@ namespace NetBlaze.Application.Services
                 .FirstOrDefaultAsync(x => x.UserId == randomCheckRequestReply.UserId);
 
             if (targetRandom == null)
+            {
                 return ApiResponse<bool>.ReturnFailureResponse(Messages.RandomCheckNotFound, HttpStatusCode.NotFound);
+            }
 
             if (targetRandom.OTP != randomCheckRequestReply.OTP)
+            {
                 return ApiResponse<bool>.ReturnFailureResponse(Messages.InCorrectOTP, HttpStatusCode.NotFound);
+            }
 
             if (targetRandom.ExpirationDate < DateTime.Now)
+            {
                 return ApiResponse<bool>.ReturnFailureResponse(Messages.OtpExpired, HttpStatusCode.NotFound);
+            }
 
             targetRandom.IsReplied = true;
             targetRandom.RepliedDate = DateTime.Now;
@@ -85,6 +93,30 @@ namespace NetBlaze.Application.Services
             await _unitOfWork.Repository.CompleteAsync(cancellationToken);
             
             return ApiResponse<bool>.ReturnSuccessResponse(false, Messages.RecordedSuccessfully);
+        }
+
+        public async Task<ApiResponse<PaginatedList<GetAllRandomChecksForUserResponseDto>>> GetAllRandomChecksForUser(GetAllRandomChecksForUserRequestDto getAllRandomChecksForUserRequestDto, CancellationToken cancellationToken = default)
+        {
+            var data = _unitOfWork.Repository
+               .GetQueryable<RandomCheckReport>()
+               .Where(a => 
+                    a.EmployeeId == getAllRandomChecksForUserRequestDto.UserId &&
+                    a.Date >= getAllRandomChecksForUserRequestDto.From && 
+                    a.Date <= getAllRandomChecksForUserRequestDto.To)
+               .Select(a => new GetAllRandomChecksForUserResponseDto(
+                   a.EmployeeId,
+                   a.EmployeeName,
+                   a.DepartmentId,
+                   a.DepartmentName,
+                   a.Date,
+                   a.Time,
+                   a.IsReplied,
+                   a.RepliedDate
+               ));
+
+            var response = await data.PaginatedListAsync(getAllRandomChecksForUserRequestDto.PageNumber, getAllRandomChecksForUserRequestDto.PageSize);
+
+            return ApiResponse<PaginatedList<GetAllRandomChecksForUserResponseDto>>.ReturnSuccessResponse(response);
         }
     }
 }

@@ -17,5 +17,7 @@ namespace NetBlaze.Application.Interfaces.ServicesInterfaces
         Task<ApiResponse<long>> UpdatePolicyAsync(UpdatePolicyRequestDto updatePolicyRequestDto, CancellationToken cancellationToken = default);
 
         Task<ApiResponse<long>> DeletePolicyAsync(long id, CancellationToken cancellationToken = default);
+
+        Task<ApiResponse<bool>> ApplyPolicyAsync(ApplyPolicyRequestDto applyPolicyRequestDto, CancellationToken cancellationToken = default);
     }
 }

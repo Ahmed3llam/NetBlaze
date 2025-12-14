@@ -1,8 +1,9 @@
-﻿namespace NetBlaze.SharedKernel.Enums
+﻿
+namespace NetBlaze.SharedKernel.Enums
 {
     public enum PolicyType
     {
-        Reward = 0,
-        Punishment = 1
+        None = 0,
+        CheckIn_OnTime = 1,
     }
 }

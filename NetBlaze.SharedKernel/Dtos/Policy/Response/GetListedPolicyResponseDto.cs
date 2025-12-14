@@ -5,11 +5,12 @@ namespace NetBlaze.SharedKernel.Dtos.Policy.Response
     public sealed record GetListedPolicyResponseDto(
         long Id,
         string Name,
-        DateTime WorkStartTime,
-        DateTime WorkEndTime,
+        TimeSpan From,
+        TimeSpan To,
         PolicyType PolicyType,
+        PolicyAction PolicyAction,
         int CriticalHours,
-        double Action,
+        double ActionValue,
         bool IsActive
     );
 }

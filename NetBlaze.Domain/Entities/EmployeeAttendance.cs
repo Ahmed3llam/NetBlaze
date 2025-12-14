@@ -18,6 +18,6 @@ namespace NetBlaze.Domain.Entities
 
         public virtual User User { get; set; }
 
-        public ICollection<AttendancePolicyAction> AttendancePolicies { get; set; } = [];
+        public ICollection<AttendancePolicyAction> AttendancePolicyActions { get; set; } = [];
     }
 }

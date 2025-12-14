@@ -255,4 +255,13 @@
   <data name="RecordedSuccessfully" xml:space="preserve">
     <value>RecordedSuccessfully</value>
   </data>
+  <data name="ToShouldBeAfterDateOfFrom" xml:space="preserve">
+    <value>The To date must be after the From date</value>
+  </data>
+  <data name="PolicyAppliedSuccessfully" xml:space="preserve">
+    <value>Policy applied successfully</value>
+  </data>
+  <data name="PolicyRejectedSuccessfully" xml:space="preserve">
+    <value>Policy rejected successfully</value>
+  </data>
 </root>

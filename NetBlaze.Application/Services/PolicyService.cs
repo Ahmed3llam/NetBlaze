@@ -28,11 +28,12 @@ namespace NetBlaze.Application.Services
                 .Select(p => new GetListedPolicyResponseDto(
                         p.Id,
                         p.PolicyName,
-                        p.WorkStartTime,
-                        p.WorkEndTime,
+                        p.From,
+                        p.To,
                         p.PolicyType,
+                        p.PolicyAction,
                         p.CriticalHours,
-                        p.Action,
+                        p.ActionValue,
                         p.IsActive));
 
             var result = await PaginatedList<GetListedPolicyResponseDto>.CreateAsync(listedPolicies, paginateRequestDto.PageNumber, paginateRequestDto.PageSize);
@@ -50,11 +51,12 @@ namespace NetBlaze.Application.Services
                     p => new GetPolicyResponseDto(
                         p.Id, 
                         p.PolicyName,
-                        p.WorkStartTime, 
-                        p.WorkEndTime, 
+                        p.From, 
+                        p.To, 
                         p.PolicyType,
+                        p.PolicyAction,
                         p.CriticalHours,
-                        p.Action),
+                        p.ActionValue),
                     cancellationToken
                 );
 
@@ -71,11 +73,12 @@ namespace NetBlaze.Application.Services
             var policy = new Policy
             {
                 PolicyName = addPolicyRequestDto.PolicyName,
-                WorkStartTime = addPolicyRequestDto.WorkStartTime,
-                WorkEndTime = addPolicyRequestDto.WorkEndTime,
+                From = addPolicyRequestDto.From,
+                To = addPolicyRequestDto.To,
                 CriticalHours = addPolicyRequestDto.CriticalHours,
                 PolicyType = addPolicyRequestDto.PolicyType,
-                Action = addPolicyRequestDto.Action
+                PolicyAction = addPolicyRequestDto.PolicyAction,
+                ActionValue = addPolicyRequestDto.ActionValue
             };
 
             await _unitOfWork.Repository.AddAsync(policy, cancellationToken);
@@ -96,15 +99,18 @@ namespace NetBlaze.Application.Services
                 );
 
             if (targetPolicy == null)
+            {
                 return ApiResponse<long>.ReturnFailureResponse(Messages.PolicyNotFound, HttpStatusCode.NotFound);
+            }
 
             //ToDo: update only sent data
             targetPolicy.PolicyName = updatePolicyRequestDto.PolicyName;
-            targetPolicy.WorkStartTime = updatePolicyRequestDto.WorkStartTime;
-            targetPolicy.WorkEndTime = updatePolicyRequestDto.WorkEndTime;
+            targetPolicy.From = updatePolicyRequestDto.From;
+            targetPolicy.To = updatePolicyRequestDto.To;
             targetPolicy.CriticalHours = updatePolicyRequestDto.CriticalHours;
             targetPolicy.PolicyType = updatePolicyRequestDto.PolicyType;
-            targetPolicy.Action = updatePolicyRequestDto.Action;
+            targetPolicy.PolicyAction = updatePolicyRequestDto.PolicyAction;
+            targetPolicy.ActionValue = updatePolicyRequestDto.ActionValue;
 
             var rowsAffected = await _unitOfWork.Repository.CompleteAsync(cancellationToken);
 
@@ -142,6 +148,27 @@ namespace NetBlaze.Application.Services
             }
 
             return ApiResponse<long>.ReturnSuccessResponse(targetPolicy.Id, Messages.PolicyNotModified, HttpStatusCode.NotModified);
+        }
+
+        public async Task<ApiResponse<bool>> ApplyPolicyAsync(ApplyPolicyRequestDto applyPolicyRequestDto, CancellationToken cancellationToken = default)
+        {
+            var appliedPolicy = new AttendancePolicyAction
+            {
+                AttendanceId = applyPolicyRequestDto.AttendanceId,
+                PolicyId = applyPolicyRequestDto.PolicyId,
+                HoursValue = applyPolicyRequestDto.DeductionHours,
+                IsApplied = applyPolicyRequestDto.IsApplied,
+                Clarification = applyPolicyRequestDto.Clarification
+            };
+
+            await _unitOfWork.Repository.AddAsync(appliedPolicy, cancellationToken);
+
+            await _unitOfWork.Repository.CompleteAsync(cancellationToken);
+
+            return ApiResponse<bool>.ReturnSuccessResponse(appliedPolicy.IsApplied,
+                appliedPolicy.IsApplied 
+                    ? Messages.PolicyAppliedSuccessfully
+                    : Messages.PolicyRejectedSuccessfully);
         }
     }
 }

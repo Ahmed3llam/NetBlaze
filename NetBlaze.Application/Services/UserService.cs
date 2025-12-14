@@ -40,14 +40,18 @@ namespace NetBlaze.Application.Services
             string token = "";
 
             if (!string.IsNullOrEmpty(authorizationHeader) && authorizationHeader.StartsWith("Bearer "))
+            {
                 token = authorizationHeader.Substring("Bearer ".Length).Trim();
+            }
 
             var userId = _jwtBearerService.GetSidFromToken(token);
 
             var user = await _userManager.FindByIdAsync(userId.ToString());
 
             if (user == null)
+            {
                 return ApiResponse<long>.ReturnFailureResponse(Messages.UserNotFound, HttpStatusCode.NotFound);
+            }
 
             if (user.Email != updateUserDataRequestDto.Email)
             {
@@ -59,7 +63,9 @@ namespace NetBlaze.Application.Services
                     );
 
                 if (IsFoundUserWithSameEmail)
+                {
                     return ApiResponse<long>.ReturnFailureResponse(Messages.EmailAlreadyExists, HttpStatusCode.NotFound);
+                }
             }
 
             //ToDo: update only sent data
@@ -87,16 +93,22 @@ namespace NetBlaze.Application.Services
                 );
 
             if (user == null)
+            {
                 return ApiResponse<long>.ReturnFailureResponse(Messages.UserNotFound, HttpStatusCode.NotFound);
+            }
 
             var existingUserRole = user.UserRoles.FirstOrDefault();
             if (existingUserRole != null)
+            {
                 await _unitOfWork.Repository.HardDeleteAsync(existingUserRole);
+            }
 
             var role = await _roleManager.FindByIdAsync(updateUserRoleRequestDto.RoleId.ToString());
 
             if (role == null)
+            {
                 return ApiResponse<long>.ReturnFailureResponse(Messages.RoleNotFound, HttpStatusCode.BadRequest);
+            }
 
             await _userManager.AddToRoleAsync(user, role.Name);
 

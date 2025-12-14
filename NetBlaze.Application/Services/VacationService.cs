@@ -34,7 +34,7 @@ namespace NetBlaze.Application.Services
                         v.Description)
                 );
 
-            var result = await listedVacations.PaginatedListAsync(paginateRequestDto.PageNumber, paginateRequestDto.PageNumber);
+            var result = await listedVacations.PaginatedListAsync(paginateRequestDto.PageNumber, paginateRequestDto.PageSize);
 
             //var result = await PaginatedList<GetListedVacationResponseDto>.CreateAsync(listedVacations, paginateRequestDto.PageNumber, paginateRequestDto.PageSize);
 

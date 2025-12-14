@@ -6,6 +6,8 @@ namespace NetBlaze.Domain.Entities
     {
         // Properties
 
+        public double HoursValue { get; set; }
+
         public bool IsApplied { get; set; }
 
         public string? Clarification { get; set; }

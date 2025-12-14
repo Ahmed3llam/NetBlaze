@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NetBlaze.Infrastructure.Data.DatabaseContext;
 
@@ -11,9 +12,11 @@ using NetBlaze.Infrastructure.Data.DatabaseContext;
 namespace NetBlaze.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251210121013_updatetimesTypeInPolicyEntity")]
+    partial class updatetimesTypeInPolicyEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -49,9 +52,6 @@ namespace NetBlaze.Infrastructure.Migrations
                     b.Property<string>("DeletedBy")
                         .HasMaxLength(500)
                         .HasColumnType("varchar(500)");
-
-                    b.Property<double>("HoursValue")
-                        .HasColumnType("double");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("tinyint(1)");
@@ -430,9 +430,6 @@ namespace NetBlaze.Infrastructure.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("varchar(500)");
 
-                    b.Property<TimeSpan>("From")
-                        .HasColumnType("time(6)");
-
                     b.Property<bool>("IsActive")
                         .HasColumnType("tinyint(1)");
 
@@ -456,7 +453,10 @@ namespace NetBlaze.Infrastructure.Migrations
                     b.Property<int>("PolicyType")
                         .HasColumnType("int");
 
-                    b.Property<TimeSpan>("To")
+                    b.Property<TimeSpan>("WorkEndTime")
+                        .HasColumnType("time(6)");
+
+                    b.Property<TimeSpan>("WorkStartTime")
                         .HasColumnType("time(6)");
 
                     b.HasKey("Id");
@@ -711,61 +711,6 @@ namespace NetBlaze.Infrastructure.Migrations
                     b.ToView("EmployeeAttendanceReport", (string)null);
                 });
 
-            modelBuilder.Entity("NetBlaze.Domain.Views.EmployeeLatenessReport", b =>
-                {
-                    b.Property<double>("ActionValue")
-                        .HasColumnType("double");
-
-                    b.Property<double>("AppliedHours")
-                        .HasColumnType("double");
-
-                    b.Property<long>("DepartmentId")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("DepartmentName")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<long>("EmployeeId")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("EmployeeName")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<double>("FinalHours")
-                        .HasColumnType("double");
-
-                    b.Property<DateOnly>("FromDate")
-                        .HasColumnType("date");
-
-                    b.Property<int>("LateCheckins")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PolicyAction")
-                        .HasColumnType("int");
-
-                    b.Property<long>("PolicyId")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("PolicyName")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<DateOnly>("ToDate")
-                        .HasColumnType("date");
-
-                    b.Property<int>("TotalCheckins")
-                        .HasColumnType("int");
-
-                    b.Property<double>("TotalHours")
-                        .HasColumnType("double");
-
-                    b.ToTable((string)null);
-
-                    b.ToView("EmployeeLatenessReport", (string)null);
-                });
-
             modelBuilder.Entity("NetBlaze.Domain.Views.RandomCheckReport", b =>
                 {
                     b.Property<DateOnly>("Date")
@@ -802,19 +747,19 @@ namespace NetBlaze.Infrastructure.Migrations
             modelBuilder.Entity("NetBlaze.Domain.Entities.AttendancePolicyAction", b =>
                 {
                     b.HasOne("NetBlaze.Domain.Entities.EmployeeAttendance", "Attendance")
-                        .WithMany("AttendancePolicyActions")
+                        .WithMany("AttendancePolicies")
                         .HasForeignKey("AttendanceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("NetBlaze.Domain.Entities.Policy", "Policy")
-                        .WithMany("AttendancePolicyActions")
+                        .WithMany("AttendancePolicies")
                         .HasForeignKey("PolicyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("NetBlaze.Domain.Entities.RandomCheck", null)
-                        .WithMany("AttendancePolicyActions")
+                        .WithMany("AttendancePolicies")
                         .HasForeignKey("RandomCheckId");
 
                     b.Navigation("Attendance");
@@ -898,7 +843,7 @@ namespace NetBlaze.Infrastructure.Migrations
 
             modelBuilder.Entity("NetBlaze.Domain.Entities.EmployeeAttendance", b =>
                 {
-                    b.Navigation("AttendancePolicyActions");
+                    b.Navigation("AttendancePolicies");
                 });
 
             modelBuilder.Entity("NetBlaze.Domain.Entities.Identity.Role", b =>
@@ -918,12 +863,12 @@ namespace NetBlaze.Infrastructure.Migrations
 
             modelBuilder.Entity("NetBlaze.Domain.Entities.Policy", b =>
                 {
-                    b.Navigation("AttendancePolicyActions");
+                    b.Navigation("AttendancePolicies");
                 });
 
             modelBuilder.Entity("NetBlaze.Domain.Entities.RandomCheck", b =>
                 {
-                    b.Navigation("AttendancePolicyActions");
+                    b.Navigation("AttendancePolicies");
                 });
 #pragma warning restore 612, 618
         }

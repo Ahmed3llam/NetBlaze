@@ -14,15 +14,16 @@ namespace NetBlaze.SharedKernel.Dtos.Policy.Request
         [Required(ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = nameof(Messages.FieldRequired))]
         public string PolicyName { get; set; }
         [Required(ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = nameof(Messages.FieldRequired))]
-        public DateTime WorkStartTime { get; set; }
+        public TimeSpan From { get; set; }
         [Required(ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = nameof(Messages.FieldRequired))]
-        public DateTime WorkEndTime { get; set; }
+        public TimeSpan To { get; set; }
         [Required(ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = nameof(Messages.FieldRequired))]
         public PolicyType PolicyType { get; set; }
         [Required(ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = nameof(Messages.FieldRequired))]
+        public PolicyAction PolicyAction { get; set; }
         public int CriticalHours { get; set; }
         [Required(ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = nameof(Messages.FieldRequired))]
-        public double Action { get; set; }
+        public double ActionValue { get; set; }
 
         public UpdatePolicyRequestDto() { }
 
@@ -30,20 +31,22 @@ namespace NetBlaze.SharedKernel.Dtos.Policy.Request
         public UpdatePolicyRequestDto(
             long id,
             string policyName,
-            DateTime workStartTime,
-            DateTime workEndTime,
+            TimeSpan from,
+            TimeSpan to,
             PolicyType policyType,
+            PolicyAction policyAction,
             int criticalHours,
-            double action
+            double actionValue
         )
         {
             Id = id;
             PolicyName = policyName;
-            WorkStartTime = workStartTime;
-            WorkEndTime = workEndTime;
+            From = from;
+            To = to;
             PolicyType = policyType;
+            PolicyAction = policyAction;
             CriticalHours = criticalHours;
-            Action = action;
+            ActionValue = actionValue;
         }
     }
 }

@@ -93,5 +93,11 @@
         public static string OtpExpired => ResourceManager.GetString(nameof(OtpExpired), resourceCulture)!;
 
         public static string RecordedSuccessfully => ResourceManager.GetString(nameof(RecordedSuccessfully), resourceCulture)!;
+
+        public static string ToShouldBeAfterDateOfFrom => ResourceManager.GetString(nameof(ToShouldBeAfterDateOfFrom), resourceCulture)!;
+
+        public static string PolicyAppliedSuccessfully => ResourceManager.GetString(nameof(PolicyAppliedSuccessfully), resourceCulture)!;
+
+        public static string PolicyRejectedSuccessfully => ResourceManager.GetString(nameof(PolicyRejectedSuccessfully), resourceCulture)!;
     }
 }

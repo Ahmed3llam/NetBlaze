@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using NetBlaze.Application.Interfaces.ServicesInterfaces;
 using NetBlaze.SharedKernel.Dtos.User.Request;
 using NetBlaze.SharedKernel.Dtos.User.Response;
@@ -6,6 +7,7 @@ using NetBlaze.SharedKernel.HelperUtilities.General;
 
 namespace NetBlaze.Api.Controllers
 {
+    [AllowAnonymous]
     public class AuthController : BaseNetBlazeController, IAuthService
     {
         private readonly IAuthService _authService;
