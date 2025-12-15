@@ -99,5 +99,8 @@
         public static string PolicyAppliedSuccessfully => ResourceManager.GetString(nameof(PolicyAppliedSuccessfully), resourceCulture)!;
 
         public static string PolicyRejectedSuccessfully => ResourceManager.GetString(nameof(PolicyRejectedSuccessfully), resourceCulture)!;
+        public static string YouRegisteredYourDeviceBefore => ResourceManager.GetString(nameof(YouRegisteredYourDeviceBefore), resourceCulture)!;
+        public static string SessionEnded => ResourceManager.GetString(nameof(SessionEnded), resourceCulture)!;
+        public static string DeviceHasBeenSuccessfullyRegistered => ResourceManager.GetString(nameof(DeviceHasBeenSuccessfullyRegistered), resourceCulture)!;
     }
 }

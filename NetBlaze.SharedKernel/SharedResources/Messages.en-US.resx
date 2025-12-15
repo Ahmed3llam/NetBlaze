@@ -264,4 +264,13 @@
   <data name="PolicyRejectedSuccessfully" xml:space="preserve">
     <value>Policy rejected successfully</value>
   </data>
+  <data name="DeviceHasBeenSuccessfullyRegistered" xml:space="preserve">
+    <value>Your device has been successfully registered! You can now only check in from this device.</value>
+  </data>
+  <data name="SessionEnded" xml:space="preserve">
+    <value>The session has ended</value>
+  </data>
+  <data name="YouRegisteredYourDeviceBefore" xml:space="preserve">
+    <value>You already have a registered device! No other device can be registered</value>
+  </data>
 </root>

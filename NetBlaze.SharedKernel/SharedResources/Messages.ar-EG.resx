@@ -264,4 +264,13 @@
   <data name="PolicyRejectedSuccessfully" xml:space="preserve">
     <value>تم رفض السياسة بنجاح</value>
   </data>
+  <data name="DeviceHasBeenSuccessfullyRegistered" xml:space="preserve">
+    <value>تم تسجيل جهازك بنجاح! الآن يمكنك تسجيل الحضور فقط من هذا الجهاز</value>
+  </data>
+  <data name="SessionEnded" xml:space="preserve">
+    <value>انتهت الجلسة</value>
+  </data>
+  <data name="YouRegisteredYourDeviceBefore" xml:space="preserve">
+    <value>لديك جهاز مسجل مسبقاً! لا يمكن تسجيل جهاز آخر</value>
+  </data>
 </root>
