@@ -273,4 +273,10 @@
   <data name="YouRegisteredYourDeviceBefore" xml:space="preserve">
     <value>لديك جهاز مسجل مسبقاً! لا يمكن تسجيل جهاز آخر</value>
   </data>
+  <data name="ShouldRegisterYourDeviceFirst" xml:space="preserve">
+    <value>يجب عليك تسجيل جهازك أولاً</value>
+  </data>
+  <data name="ShouldUseRegisteredDevice" xml:space="preserve">
+    <value>يجب عليك استخدام الجهاز المسجل</value>
+  </data>
 </root>
