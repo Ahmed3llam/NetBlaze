@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Fido2NetLib;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NetBlaze.Application.Interfaces.ServicesInterfaces;
 using NetBlaze.Application.Mappings;
@@ -20,9 +21,16 @@ namespace NetBlaze.Api.Controllers
 
         [HttpPost("attend")]
         [Authorize(Roles = $"{nameof(Role.Employee)},{nameof(Role.Manager)},{nameof(Role.Admin)}")]
-        public async Task<ApiResponse<AttendUserResponseDto>> Attend(CancellationToken cancellationToken = default)
+        public async Task<ApiResponse<AttendUserResponseDto>> Attend(AuthenticatorAttestationRawResponse attestation, CancellationToken cancellationToken = default)
         {
-            return await _attendService.Attend(cancellationToken);
+            return await _attendService.Attend(attestation, cancellationToken);
+        }
+
+        [HttpPost("attend-fido-user")]
+        [Authorize(Roles = $"{nameof(Role.Employee)},{nameof(Role.Manager)},{nameof(Role.Admin)}")]
+        public async Task<ApiResponse<CredentialCreateOptions>> AttendFidoUser(CancellationToken cancellationToken = default)
+        {
+            return await _attendService.AttendFidoUser(cancellationToken);
         }
 
         [HttpGet]

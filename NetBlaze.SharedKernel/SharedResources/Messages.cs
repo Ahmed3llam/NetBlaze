@@ -102,5 +102,7 @@
         public static string YouRegisteredYourDeviceBefore => ResourceManager.GetString(nameof(YouRegisteredYourDeviceBefore), resourceCulture)!;
         public static string SessionEnded => ResourceManager.GetString(nameof(SessionEnded), resourceCulture)!;
         public static string DeviceHasBeenSuccessfullyRegistered => ResourceManager.GetString(nameof(DeviceHasBeenSuccessfullyRegistered), resourceCulture)!;
+        public static string ShouldRegisterYourDeviceFirst => ResourceManager.GetString(nameof(ShouldRegisterYourDeviceFirst), resourceCulture)!;
+        public static string ShouldUseRegisteredDevice => ResourceManager.GetString(nameof(ShouldUseRegisteredDevice), resourceCulture)!;
     }
 }

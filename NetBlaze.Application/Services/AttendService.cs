@@ -38,19 +38,9 @@ namespace NetBlaze.Application.Services
             _cache = cache;
         }
 
-        public async Task<ApiResponse<AttendUserResponseDto>> Attend(CancellationToken cancellationToken = default)
+        public async Task<ApiResponse<AttendUserResponseDto>> Attend(AuthenticatorAttestationRawResponse attestation, CancellationToken cancellationToken = default)
         {
             var now = DateTime.Now;
-
-            //var authorizationHeader = _httpContextAccessor.HttpContext?.Request.Headers["Authorization"].ToString();
-            //string token = "";
-
-            //if (!string.IsNullOrEmpty(authorizationHeader) && authorizationHeader.StartsWith("Bearer "))
-            //{
-            //    token = authorizationHeader.Substring("Bearer ".Length).Trim();
-            //}
-
-            //var userId = _jwtBearerService.GetSidFromToken(token);
 
             var jsonOptions = _cache.Get("fido2.attestationOptions").ToString();
 
@@ -62,12 +52,28 @@ namespace NetBlaze.Application.Services
             var options = CredentialCreateOptions.FromJson(jsonOptions);
             var userId = BitConverter.ToInt64(options.User.Id);
 
-            //if (userId == null)
-            //{
-            //    return ApiResponse<AttendUserResponseDto>.ReturnFailureResponse(Messages.UserNotFound, HttpStatusCode.NotFound);
-            //}
+            var existingDevice = await _unitOfWork
+                .Repository
+                .GetQueryable<UserDetails>()
+                .AsNoTracking()
+                .Where(u => u.UserId == userId && u.IsActive)
+                .FirstOrDefaultAsync(cancellationToken);
 
-            // ToDo : vacations
+            if (existingDevice == null)
+            {
+                return ApiResponse<AttendUserResponseDto>.ReturnFailureResponse(Messages.ShouldRegisterYourDeviceFirst, HttpStatusCode.BadRequest);
+            }
+
+            var userAgent = _httpContextAccessor.HttpContext.Request.Headers.UserAgent.ToString();
+            var acceptLanguage = _httpContextAccessor.HttpContext.Request.Headers.AcceptLanguage.ToString();
+
+            var deviceFingerprint = $"{userAgent}|{acceptLanguage}";
+
+            if (existingDevice.DeviceInfo != deviceFingerprint)
+            {
+                return ApiResponse<AttendUserResponseDto>.ReturnFailureResponse(Messages.ShouldUseRegisteredDevice, HttpStatusCode.BadRequest);
+            }
+
             var day = now.DayOfWeek;
             var IsDayFoundAsVacation = await _unitOfWork
                     .Repository
@@ -89,8 +95,6 @@ namespace NetBlaze.Application.Services
             attend.UserId = userId;
             attend.Date = DateOnly.FromDateTime(now.Date);
             attend.Time = now.TimeOfDay;
-
-            // ToDo : attendance polices
 
             await _unitOfWork.Repository.AddAsync(attend, cancellationToken);
 
