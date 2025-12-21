@@ -38,6 +38,7 @@ namespace NetBlaze.Ui.Client.Extensions
             // ADD BLAZOR SERVICES HERE:
 
             services.AddScoped<BlazSampleService>();
+            services.AddScoped<BlazAuthService>();
         }
 
         public static async Task ConsumeClientServicesAsync(this WebAssemblyHost app)

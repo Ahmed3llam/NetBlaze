@@ -9,13 +9,11 @@ using NetBlaze.Application.Interfaces.ServicesInterfaces;
 using NetBlaze.Domain.Entities;
 using NetBlaze.Domain.Entities.Identity;
 using NetBlaze.SharedKernel.Dtos.General;
-using NetBlaze.SharedKernel.Dtos.Policy.Response;
 using NetBlaze.SharedKernel.Dtos.User.Request;
 using NetBlaze.SharedKernel.Dtos.User.Response;
 using NetBlaze.SharedKernel.HelperUtilities.General;
 using NetBlaze.SharedKernel.SharedResources;
 using System.Net;
-using System.Security.Claims;
 
 namespace NetBlaze.Application.Services
 {

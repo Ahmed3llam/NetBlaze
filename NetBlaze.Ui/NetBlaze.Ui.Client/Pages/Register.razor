@@ -1,0 +1,115 @@
+﻿@page "/register"
+
+<PageTitle>Register</PageTitle>
+
+<h3>Register</h3>
+
+@using NetBlaze.SharedKernel.Enums
+
+<EditForm Model="registerUserRequestDto" OnValidSubmit="SubmitAsync">
+    <DataAnnotationsValidator />
+
+    <MudContainer MaxWidth="MaxWidth.Small" Class="mt-10">
+        <MudPaper Elevation="10" Class="pa-6">
+
+            <MudText Typo="Typo.h5">Create Account</MudText>
+            <MudText Typo="Typo.body2" Color="Color.Secondary" Class="mb-4">
+                Join us today! Enter your details below.
+            </MudText>
+
+                <MudItem xs="12">
+                    <MudTextField @bind-Value="registerUserRequestDto.FullName"
+                                  For="@(() => registerUserRequestDto.FullName)"
+                                  Label="FullName"
+                                  Variant="Variant.Outlined"
+                                  Immediate
+                                  Class="mb-3" />
+                </MudItem>
+
+                <MudItem xs="12">
+                    <MudTextField @bind-Value="registerUserRequestDto.PhoneNumber"
+                                  For="@(() => registerUserRequestDto.PhoneNumber)"
+                                  Label="PhoneNumber"
+                                  Lines="4"
+                                  Variant="Variant.Outlined"
+                                  Immediate
+                                  Class="mb-3" />
+                </MudItem>
+
+                <MudItem xs="12" md="6">
+                    <MudTextField @bind-Value="registerUserRequestDto.Email"
+                                     For="@(() => registerUserRequestDto.Email)"
+                                     Label="Email"
+                                     Variant="Variant.Outlined"
+                                     Immediate
+                                     Class="mb-3" />
+                </MudItem>
+
+                <MudItem xs="12" md="6">
+                    <MudTextField @bind-Value="registerUserRequestDto.Password"
+                                     For="@(() => registerUserRequestDto.Password)"
+                                     Label="Password"
+                                     Format="F2"
+                                     Variant="Variant.Outlined"
+                                     Immediate
+                                     Class="mb-3" />
+                </MudItem>
+                
+                <MudItem xs="12" md="6">
+                    <MudTextField @bind-Value="registerUserRequestDto.ConfirmPassword"
+                                  For="@(() => registerUserRequestDto.ConfirmPassword)"
+                                  Label="Confirm Password"
+                                  Format="F2"
+                                  Variant="Variant.Outlined"
+                                  Immediate
+                                  Class="mb-3" />
+                </MudItem>
+
+                <MudItem xs="12" md="6">
+                    <MudSelect @bind-Value="registerUserRequestDto.RoleId"
+                               For="@(() => registerUserRequestDto.RoleId)"
+                               Label="Role"
+                               Variant="Variant.Outlined"
+                               Class="mb-3">
+                        @foreach (var role in Enum.GetValues<Role>())
+                        {
+                        <MudSelectItem Value="(long)role">@role.ToString()</MudSelectItem>
+                        }
+                    </MudSelect>
+                </MudItem>
+
+               @*  <MudItem xs="12" md="6">
+                    <MudSelect @bind-Value="registerUserRequestDto.ManagerId"
+                               For="@(() => registerUserRequestDto.ManagerId)"
+                               Label="Manager"
+                               Variant="Variant.Outlined"
+                               Class="mb-3">
+                        @foreach (var status in Enum.GetValues<Role>())
+                        {
+                            <MudSelectItem Value="status">@status.ToString()</MudSelectItem>
+                        }
+                    </MudSelect>
+                </MudItem>
+
+                <MudItem xs="12" md="6">
+                    <MudSelect @bind-Value="registerUserRequestDto.DepartmentId"
+                               For="@(() => registerUserRequestDto.DepartmentId)"
+                               Label="Department"
+                               Variant="Variant.Outlined"
+                               Class="mb-3">
+                        @foreach (var status in Enum.GetValues<Role>())
+                        {
+                            <MudSelectItem Value="status">@status.ToString()</MudSelectItem>
+                        }
+                    </MudSelect>
+                </MudItem> *@
+                <MudButton ButtonType="ButtonType.Submit"
+                       Color="Color.Primary"
+                       Variant="Variant.Filled">
+                Add Sample
+            </MudButton>
+
+            </MudPaper>
+    </MudContainer>
+</EditForm>
+

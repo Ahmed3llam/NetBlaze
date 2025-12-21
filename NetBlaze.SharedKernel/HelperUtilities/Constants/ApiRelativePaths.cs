@@ -12,5 +12,12 @@
         public const string SAMPLE_ADD = $"{SAMPLE_BASE}/add";
         public const string SAMPLE_UPDATE = $"{SAMPLE_BASE}/update";
         public const string SAMPLE_DELETE = $"{SAMPLE_BASE}/delete";
+
+        // Auth Paths
+        public const string AUTH_BASE = $"{API_COMMON_PREFIX}/auth/";
+        public const string AUTH_REGISTER = $"{AUTH_BASE}/register";
+        public const string AUTH_REGISTER_FIDO_START = $"{AUTH_BASE}/register-fido-user";
+        public const string AUTH_REGISTER_FIDO_COMPLETE = $"{AUTH_BASE}/register-user-credential";
+        public const string AUTH_LOGIN = $"{AUTH_BASE}/LOGIN";
     }
 }
