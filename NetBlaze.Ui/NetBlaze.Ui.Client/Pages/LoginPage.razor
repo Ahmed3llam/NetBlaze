@@ -1,0 +1,58 @@
+﻿@page "/login"
+
+<PageTitle>Login</PageTitle>
+
+<EditForm Model="loginUserRequestDto" OnValidSubmit="Login">
+    <DataAnnotationsValidator />
+    <MudContainer MaxWidth="MaxWidth.Medium" Class="my-10">
+        <MudPaper Elevation="10" Class="pa-6">
+            <MudGrid>
+                <MudItem xs="4" Class="pa-4 mb-4">
+                    <MudItem Class="m-auto">
+                        <MudText Typo="Typo.h5" Align="Align.Center">Login To Account</MudText>
+                        <MudText Typo="Typo.body2" Align="Align.Center" Color="Color.Secondary" Class="mb-4">
+                            Join us today! Enter your details below.
+                        </MudText>
+                    </MudItem>
+                </MudItem>
+                <MudItem xs="8" Class="pa-4 mb-4">
+                    <MudText Typo="Typo.h5">Login</MudText>
+
+                    <MudItem xs="12">
+                        <MudTextField @bind-Value="loginUserRequestDto.Email"
+                                      For="@(() => loginUserRequestDto.Email)"
+                                      Label="Email"
+                                      Variant="Variant.Outlined"
+                                      Immediate
+                                      Class="mb-3" />
+                    </MudItem>
+
+                    <MudItem xs="12">
+                        <MudTextField @bind-Value="loginUserRequestDto.Password"
+                                      For="@(() => loginUserRequestDto.Password)"
+                                      Label="Password"
+                                      InputType="InputType.Password"
+                                      Variant="Variant.Outlined"
+                                      Format="F2"
+                                      Immediate
+                                      Class="mb-3" />
+                    </MudItem>
+
+                    @* <MudItem xs="12">
+                        <MudCheckBox @bind-Value="loginUserRequestDto.RememberMe"
+                                    For="@(() => loginUserRequestDto.RememberMe)"
+                                    Label="RememberMe"
+                                    Color="Color.Primary"></MudCheckBox>
+                    </MudItem> *@
+
+                    <MudButton ButtonType="ButtonType.Submit"
+                               Color="Color.Primary"
+                               Variant="Variant.Filled">
+                        Login
+                    </MudButton>
+                </MudItem>
+            </MudGrid>
+        </MudPaper>
+    </MudContainer>
+</EditForm>
+

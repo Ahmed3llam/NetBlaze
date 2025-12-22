@@ -19,6 +19,8 @@ namespace NetBlaze.Application.Extensions
             builder.Services.AddScoped<IVacationService, VacationService>();
             builder.Services.AddScoped<IPolicyService, PolicyService>();
             builder.Services.AddScoped<IRandomCheckService, RandomCheckService>();
+            builder.Services.AddScoped<IRoleService, RoleService>();
+            builder.Services.AddScoped<IDepartmentService, DepartmentService>();
             builder.Services.Configure<Fido2Configuration>(
                 builder.Configuration.GetSection("Fido2"));
                 builder.Services.AddSingleton<Fido2>(sp =>

@@ -1,0 +1,108 @@
+﻿@page "/register"
+
+<PageTitle>Register</PageTitle>
+
+<EditForm Model="registerUserRequestDto" OnValidSubmit="SubmitAsync">
+    <DataAnnotationsValidator />
+    <MudContainer MaxWidth="MaxWidth.Medium" Class="my-10">
+        <MudPaper Elevation="10" Class="pa-6">
+            <MudGrid>
+              <MudItem xs="4" Class="pa-4 mb-4">
+                    <MudItem Class="m-auto">
+                    <MudText Typo="Typo.h5" Align="Align.Center">Create Account</MudText>
+                    <MudText Typo="Typo.body2" Align="Align.Center" Color="Color.Secondary" Class="mb-4">
+                        Join us today! Enter your details below.
+                    </MudText>
+                </MudItem>
+                </MudItem>
+                <MudItem xs="8" Class="pa-4 mb-4">
+                    <MudText Typo="Typo.h5">Register</MudText>
+                    <MudItem xs="12">
+                        <MudTextField @bind-Value="registerUserRequestDto.FullName"
+                                        For="@(() => registerUserRequestDto.FullName)"
+                                        Label="FullName"
+                                        Variant="Variant.Outlined"
+                                        Immediate
+                                        Class="mb-3" />
+                    </MudItem>
+
+                    <MudItem xs="12">
+                        <MudTextField @bind-Value="registerUserRequestDto.PhoneNumber"
+                                        For="@(() => registerUserRequestDto.PhoneNumber)"
+                                        Label="PhoneNumber"
+                                        Variant="Variant.Outlined"
+                                        Immediate
+                                        Class="mb-3" />
+                    </MudItem>
+
+                    <MudItem xs="12">
+                        <MudTextField @bind-Value="registerUserRequestDto.Email"
+                                            For="@(() => registerUserRequestDto.Email)"
+                                            Label="Email"
+                                            Variant="Variant.Outlined"
+                                            Immediate
+                                            Class="mb-3" />
+                    </MudItem>
+
+                    <MudItem xs="12">
+                        <MudTextField @bind-Value="registerUserRequestDto.Password"
+                                            For="@(() => registerUserRequestDto.Password)"
+                                            Label="Password"
+                                            InputType="InputType.Password"
+                                            Format="F2"
+                                            Variant="Variant.Outlined"
+                                            Immediate
+                                            Class="mb-3" />
+                    </MudItem>
+                
+                    <MudItem xs="12">
+                        <MudTextField @bind-Value="registerUserRequestDto.ConfirmPassword"
+                                        For="@(() => registerUserRequestDto.ConfirmPassword)"
+                                        Label="Confirm Password"
+                                        InputType="InputType.Password"
+                                        Format="F2"
+                                        Variant="Variant.Outlined"
+                                        Immediate
+                                        Class="mb-3" />
+                    </MudItem>
+
+                    <MudItem xs="12">
+                        <MudSelect @bind-Value="registerUserRequestDto.RoleId"
+                                    For="@(() => registerUserRequestDto.RoleId)"
+                                    Label="Role"
+                                    Variant="Variant.Outlined"
+                                    Class="mb-3">
+                                <MudSelectItem Value="0L">--select--</MudSelectItem>
+                                @foreach (var role in _roles)
+                                {
+                                    <MudSelectItem Value="role.Id">@role.Name</MudSelectItem>
+                                }
+                        </MudSelect>
+                    </MudItem>
+
+                    <MudItem xs="12">
+                        <MudSelect @bind-Value="registerUserRequestDto.DepartmentId"
+                                    For="@(() => registerUserRequestDto.DepartmentId)"
+                                    Label="Department"
+                                    Variant="Variant.Outlined"
+                                    Class="mb-3">
+                            <MudSelectItem Value="0L">--select--</MudSelectItem>
+
+                            @foreach (var department in _departments)
+                            {
+                                <MudSelectItem Value="department.Id">@department.Name</MudSelectItem>
+                            }
+                        </MudSelect>
+                    </MudItem> 
+
+                    <MudButton ButtonType="ButtonType.Submit"
+                            Color="Color.Primary"
+                            Variant="Variant.Filled">
+                            Register
+                    </MudButton>
+                </MudItem>
+            </MudGrid>
+        </MudPaper>
+    </MudContainer>
+</EditForm>
+

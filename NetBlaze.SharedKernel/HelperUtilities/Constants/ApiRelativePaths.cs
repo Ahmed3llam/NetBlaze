@@ -14,10 +14,20 @@
         public const string SAMPLE_DELETE = $"{SAMPLE_BASE}/delete";
 
         // Auth Paths
-        public const string AUTH_BASE = $"{API_COMMON_PREFIX}/auth/";
+        public const string AUTH_BASE = $"{API_COMMON_PREFIX}/auth";
         public const string AUTH_REGISTER = $"{AUTH_BASE}/register";
         public const string AUTH_REGISTER_FIDO_START = $"{AUTH_BASE}/register-fido-user";
         public const string AUTH_REGISTER_FIDO_COMPLETE = $"{AUTH_BASE}/register-user-credential";
         public const string AUTH_LOGIN = $"{AUTH_BASE}/LOGIN";
+
+        // Departments Paths
+        public const string DEPARTMENT_BASE = $"{API_COMMON_PREFIX}/department";
+        public const string DEPARTMENT_LIST = $"{DEPARTMENT_BASE}/list";
+        public const string DEPARTMENT_PAGINATE = $"{DEPARTMENT_BASE}/paginate";
+
+        // Roles Paths
+        public const string ROLE_BASE = $"{API_COMMON_PREFIX}/role";
+        public const string ROLE_LIST = $"{ROLE_BASE}/list";
+        public const string ROLE_PAGINATE = $"{ROLE_BASE}/paginate";
     }
 }

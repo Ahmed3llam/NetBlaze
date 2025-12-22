@@ -38,7 +38,7 @@ if (registerBtn) {
             registerBtn.textContent = '⏳ جاري التسجيل...';
 
             // Get options from server
-            const response = await fetch('/Home/RegisterStart', {
+            const response = await fetch('/Auth/register-fido-user', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' }
             });
@@ -97,7 +97,7 @@ if (registerBtn) {
             };
 
             // Send to server
-            const completeResponse = await fetch('/Home/RegisterComplete', {
+            const completeResponse = await fetch('/Auth/register-user-credential', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(attestationResponse)
@@ -130,7 +130,7 @@ if (attendBtn) {
             attendBtn.textContent = '⏳ جاري التحقق...';
 
             // Get options from server
-            const response = await fetch('/Home/AttendStart', {
+            const response = await fetch('/Attendance/attend-fido-user', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' }
             });
@@ -189,7 +189,7 @@ if (attendBtn) {
             };
 
             // Send to server
-            const completeResponse = await fetch('/Home/AttendComplete', {
+            const completeResponse = await fetch('/Attendance/Attend', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(assertionResponse)

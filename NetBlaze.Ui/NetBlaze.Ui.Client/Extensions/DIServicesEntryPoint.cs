@@ -39,6 +39,8 @@ namespace NetBlaze.Ui.Client.Extensions
 
             services.AddScoped<BlazSampleService>();
             services.AddScoped<BlazAuthService>();
+            services.AddScoped<BlazDepartmentService>();
+            services.AddScoped<BlazRolesService>();
         }
 
         public static async Task ConsumeClientServicesAsync(this WebAssemblyHost app)
