@@ -20,7 +20,7 @@ namespace NetBlaze.Application.Services
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<ApiResponse<PaginatedList<GetListedVacationResponseDto>>> GetListedVacations(PaginateRequestDto paginateRequestDto)
+        public async Task<ApiResponse<PaginatedList<GetListedVacationResponseDto>>> GetListedVacationsAsync(PaginateRequestDto paginateRequestDto, CancellationToken cancellationToken = default)
         {
             var listedVacations = _unitOfWork
                 .Repository
@@ -35,8 +35,6 @@ namespace NetBlaze.Application.Services
                 );
 
             var result = await listedVacations.PaginatedListAsync(paginateRequestDto.PageNumber, paginateRequestDto.PageSize);
-
-            //var result = await PaginatedList<GetListedVacationResponseDto>.CreateAsync(listedVacations, paginateRequestDto.PageNumber, paginateRequestDto.PageSize);
 
             return ApiResponse<PaginatedList<GetListedVacationResponseDto>>.ReturnSuccessResponse(result);
         }

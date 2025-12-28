@@ -7,7 +7,7 @@ namespace NetBlaze.Application.Interfaces.ServicesInterfaces
 {
     public interface IRoleService
     {
-        Task<ApiResponse<PaginatedList<BaseResponseDto>>> GetPaginatedPolices(PaginateRequestDto paginateRequestDto);
-        IAsyncEnumerable<BaseResponseDto> GetListedRoles();
+        Task<ApiResponse<PaginatedList<BaseResponseDto>>> GetPaginatedPolicesAsync(PaginateRequestDto paginateRequestDto);
+        Task<ApiResponse<List<BaseResponseDto>>> GetListedRolesAsync();
     }
 }

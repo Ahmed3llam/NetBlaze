@@ -24,7 +24,7 @@ namespace NetBlaze.Infrastructure.Data.DatabaseContext
 
         public DbSet<SampleEntity> Samples => Set<SampleEntity>();
         public DbSet<Department> Departments => Set<Department>();
-        public DbSet<UserDetails> UserDetails => Set<UserDetails>();
+        public DbSet<UserCredential> UserCredentials => Set<UserCredential>();
         public DbSet<Policy> Policies => Set<Policy>();
         public DbSet<EmployeeAttendance> EmployeeAttendances => Set<EmployeeAttendance>();
         public DbSet<AttendancePolicyAction> AttendancePolicyActions => Set<AttendancePolicyAction>();

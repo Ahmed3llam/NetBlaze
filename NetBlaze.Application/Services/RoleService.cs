@@ -1,7 +1,6 @@
 ﻿using NetBlaze.Application.Interfaces.General;
 using NetBlaze.Application.Interfaces.ServicesInterfaces;
 using NetBlaze.Application.Mappings;
-using NetBlaze.Domain.Entities;
 using NetBlaze.Domain.Entities.Identity;
 using NetBlaze.SharedKernel.Dtos.General;
 using NetBlaze.SharedKernel.Dtos.Shared.Responses;
@@ -18,7 +17,7 @@ namespace NetBlaze.Application.Services
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<ApiResponse<PaginatedList<BaseResponseDto>>> GetPaginatedPolices(PaginateRequestDto paginateRequestDto)
+        public async Task<ApiResponse<PaginatedList<BaseResponseDto>>> GetPaginatedPolicesAsync(PaginateRequestDto paginateRequestDto)
         {
             var listedRoles = _unitOfWork
                 .Repository
@@ -33,20 +32,17 @@ namespace NetBlaze.Application.Services
             return ApiResponse<PaginatedList<BaseResponseDto>>.ReturnSuccessResponse(result);
         }
 
-        public async IAsyncEnumerable<BaseResponseDto> GetListedRoles()
+        public async Task<ApiResponse<List<BaseResponseDto>>> GetListedRolesAsync()
         {
-            var listedRoles = _unitOfWork
+            var listedRoles = await _unitOfWork
                 .Repository
-                .GetMultipleStream<Role, BaseResponseDto>(
+                .GetMultipleAsync<Role, BaseResponseDto>(
                     true,
                     x => x.IsActive,
                     x => new BaseResponseDto(x.Id, x.Name, x.IsActive)
                 );
 
-            await foreach (var role in listedRoles)
-            {
-                yield return role;
-            }
+            return ApiResponse<List<BaseResponseDto>>.ReturnSuccessResponse(listedRoles);
         }
     }
 }

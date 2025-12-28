@@ -21,9 +21,9 @@ namespace NetBlaze.Api.Controllers
 
         [HttpGet("list")]
         [Authorize(Roles = $"{nameof(Role.Employee)},{nameof(Role.Manager)},{nameof(Role.Admin)}")]
-        public Task<ApiResponse<PaginatedList<GetListedVacationResponseDto>>> GetListedVacations([FromQuery] PaginateRequestDto paginateRequestDto)
+        public Task<ApiResponse<PaginatedList<GetListedVacationResponseDto>>> GetListedVacationsAsync([FromQuery] PaginateRequestDto paginateRequestDto, CancellationToken cancellationToken = default)
         {
-            return _vacationService.GetListedVacations(paginateRequestDto);
+            return _vacationService.GetListedVacationsAsync(paginateRequestDto, cancellationToken);
         }
 
         [HttpGet]

@@ -16,15 +16,15 @@ namespace NetBlaze.Api.Controllers
         }
 
         [HttpGet("list")]
-        public IAsyncEnumerable<BaseResponseDto> GetListedRoles()
+        public async Task<ApiResponse<List<BaseResponseDto>>> GetListedRolesAsync()
         {
-            return _roleService.GetListedRoles();
+            return await _roleService.GetListedRolesAsync();
         }
 
         [HttpGet("paginate")]
-        public async Task<ApiResponse<PaginatedList<BaseResponseDto>>> GetPaginatedPolices(PaginateRequestDto paginateRequestDto)
+        public async Task<ApiResponse<PaginatedList<BaseResponseDto>>> GetPaginatedPolicesAsync(PaginateRequestDto paginateRequestDto)
         {
-            return await _roleService.GetPaginatedPolices(paginateRequestDto);
+            return await _roleService.GetPaginatedPolicesAsync(paginateRequestDto);
         }
     }
 }

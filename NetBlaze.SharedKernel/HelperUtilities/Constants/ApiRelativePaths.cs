@@ -20,6 +20,13 @@
         public const string AUTH_REGISTER_FIDO_COMPLETE = $"{AUTH_BASE}/register-user-credential";
         public const string AUTH_LOGIN = $"{AUTH_BASE}/LOGIN";
 
+        // users Paths
+        public const string USER_BASE = $"{API_COMMON_PREFIX}/user";
+        public const string USER_LIST_MANAGERS = $"{USER_BASE}/managers";
+        public const string USER_UPDATE_PROFILE = $"{USER_BASE}/update-profile";
+        public const string USER_UPDATE_ROLE = $"{USER_BASE}/update-role";
+        public const string USER_VALIDATE_TOKEN = $"{USER_BASE}/validate-token?token=";
+
         // Departments Paths
         public const string DEPARTMENT_BASE = $"{API_COMMON_PREFIX}/department";
         public const string DEPARTMENT_LIST = $"{DEPARTMENT_BASE}/list";
@@ -29,5 +36,13 @@
         public const string ROLE_BASE = $"{API_COMMON_PREFIX}/role";
         public const string ROLE_LIST = $"{ROLE_BASE}/list";
         public const string ROLE_PAGINATE = $"{ROLE_BASE}/paginate";
+
+        // Vacations Paths
+        public const string VACATIONS_BASE = $"{API_COMMON_PREFIX}/vacation";
+        public const string VACATIONS_LIST = $"{VACATIONS_BASE}/list";
+        public const string VACATIONS_GET = VACATIONS_BASE;
+        public const string VACATIONS_ADD = $"{VACATIONS_BASE}/add";
+        public const string VACATIONS_UPDATE = $"{VACATIONS_BASE}/update";
+        public const string VACATIONS_DELETE = $"{VACATIONS_BASE}/delete";
     }
 }

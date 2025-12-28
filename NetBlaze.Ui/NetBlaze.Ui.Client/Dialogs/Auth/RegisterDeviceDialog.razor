@@ -1,0 +1,26 @@
+﻿@* <MudDialog @bind-Visible="_showFidoRegister"
+           MaxWidth="MaxWidth.Small"
+           FullWidth="true"
+           Persistent="true">
+    <DialogContent>
+        <MudText Typo="Typo.h6" Class="mb-4">تسجيل الجهاز (Passkey)</MudText>
+        <MudText Typo="Typo.body1" Class="mb-4">
+            لتسجيل الدخول بأمان أكبر بدون كلمة مرور، سجّل جهازك الآن.
+        </MudText>
+
+        @if (_fidoLoading)
+        {
+            <MudProgressCircular Indeterminate="true" Size="Size.Large" />
+        }
+        else
+        {
+            <MudButton Variant="Variant.Filled"
+                       Color="Color.Success"
+                       FullWidth="true"
+                       Size="Size.Large"
+                       OnClick="TriggerWebAuthn">
+                تسجيل الجهاز الآن
+            </MudButton>
+        }
+    </DialogContent>
+</MudDialog> *@

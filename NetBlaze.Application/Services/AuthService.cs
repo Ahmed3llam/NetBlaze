@@ -155,7 +155,7 @@ namespace NetBlaze.Application.Services
 
             var existingDevice = await _unitOfWork
                 .Repository
-                .GetQueryable<UserDetails>()
+                .GetQueryable<UserCredential>()
                 .AsNoTracking()
                 .Where(u => u.UserId == registerFidoUserRequestDto.UserId && u.IsActive)
                 .FirstOrDefaultAsync(cancellationToken);
@@ -217,7 +217,7 @@ namespace NetBlaze.Application.Services
 
             var existingDevice = await _unitOfWork
                 .Repository
-                .GetQueryable<UserDetails>()
+                .GetQueryable<UserCredential>()
                 .AsNoTracking()
                 .Where(u => u.UserId == userId && u.IsActive)
                 .FirstOrDefaultAsync(cancellationToken);
@@ -235,7 +235,7 @@ namespace NetBlaze.Application.Services
                     // validate this credentials not in other devices
                     var creds = await _unitOfWork
                         .Repository
-                        .AnyAsync<UserDetails>(c => c.CredentialId == args.CredentialId, cancellationToken);
+                        .AnyAsync<UserCredential>(c => c.CredentialId == args.CredentialId, cancellationToken);
                     return !creds;
                 }
             );
@@ -248,7 +248,7 @@ namespace NetBlaze.Application.Services
             // Device Fingerprint 
             var deviceFingerprint = $"{userAgent}|{acceptLanguage}";
 
-            var credential = new UserDetails
+            var credential = new UserCredential
             {
                 UserId = userId,
                 CredentialId = success.Result!.CredentialId,
@@ -258,8 +258,7 @@ namespace NetBlaze.Application.Services
                 AaGuid = success.Result.Aaguid,
                 DeviceInfo = deviceFingerprint,
                 UserAgent = userAgent,
-                IpAddress = ipAddress,
-                IsActive = true
+                IpAddress = ipAddress
             };
 
             await _unitOfWork.Repository.AddAsync(credential, cancellationToken);

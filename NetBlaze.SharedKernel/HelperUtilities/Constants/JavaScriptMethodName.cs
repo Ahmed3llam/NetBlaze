@@ -13,5 +13,8 @@
         public const string GetCookie = "cookieManager.getCookie";
         public const string DeleteCookie = "cookieManager.deleteCookie";
         public const string GetAllCookies = "cookieManager.getAllCookies";
+
+        // FIDO METHODS
+        public const string StartWebAuthnRegistration = "startWebAuthnRegistration";
     }
 }

@@ -17,15 +17,15 @@ namespace NetBlaze.Api.Controllers
         }
 
         [HttpGet("list")]
-        public IAsyncEnumerable<BaseResponseDto> GetListedDepartments()
+        public async Task<ApiResponse<List<BaseResponseDto>>> GetListedDepartmentsAsync()
         {
-            return _departmentService.GetListedDepartments();
+            return await _departmentService.GetListedDepartmentsAsync();
         }
 
         [HttpGet("paginate")]
-        public async Task<ApiResponse<PaginatedList<BaseResponseDto>>> GetPaginatedDepartments(PaginateRequestDto paginateRequestDto)
+        public async Task<ApiResponse<PaginatedList<BaseResponseDto>>> GetPaginatedDepartmentsAsync(PaginateRequestDto paginateRequestDto)
         {
-            return await _departmentService.GetPaginatedDepartments(paginateRequestDto);
+            return await _departmentService.GetPaginatedDepartmentsAsync(paginateRequestDto);
         }
     }
 }

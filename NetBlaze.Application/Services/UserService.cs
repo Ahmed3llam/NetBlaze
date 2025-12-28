@@ -4,6 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using NetBlaze.Application.Interfaces.General;
 using NetBlaze.Application.Interfaces.ServicesInterfaces;
 using NetBlaze.Domain.Entities.Identity;
+using NetBlaze.SharedKernel.Dtos.General;
+using NetBlaze.SharedKernel.Dtos.Shared.Responses;
 using NetBlaze.SharedKernel.Dtos.User.Request;
 using NetBlaze.SharedKernel.HelperUtilities.General;
 using NetBlaze.SharedKernel.SharedResources;
@@ -32,6 +34,19 @@ namespace NetBlaze.Application.Services
             _httpContextAccessor = httpContextAccessor;
             _userManager = userManager;
             _roleManager = roleManager;
+        }
+
+        public async Task<ApiResponse<List<BaseResponseDto>>> GetAllManagersAsync(CancellationToken cancellationToken = default)
+        {
+            var listedManagers = await _unitOfWork
+                .Repository
+                .GetMultipleAsync<User, BaseResponseDto>(
+                    true,
+                    x => x.IsActive && x.UserRoles.Any(r => r.Role.Name == SharedKernel.Enums.Role.Manager.ToString()),
+                    x => new BaseResponseDto(x.Id, x.DisplayName, x.IsActive)
+                );
+
+            return ApiResponse<List<BaseResponseDto>>.ReturnSuccessResponse(listedManagers);
         }
 
         public async Task<ApiResponse<long>> UpdateUserDataAsync(UpdateUserDataRequestDto updateUserDataRequestDto, CancellationToken cancellationToken = default)
@@ -113,6 +128,13 @@ namespace NetBlaze.Application.Services
             await _userManager.AddToRoleAsync(user, role.Name);
 
             return ApiResponse<long>.ReturnSuccessResponse(user.Id, Messages.UserDataUpdatedSuccessfully);
+        }
+
+        public async Task<ApiResponse<GetTokenValidationResultResponseDto>> ValidateTokenForUserAsync(string? bearerToken)
+        {
+            var isValid =  await _jwtBearerService.ValidateTokenForUserAsync(bearerToken);
+
+            return ApiResponse<GetTokenValidationResultResponseDto>.ReturnSuccessResponse(isValid);
         }
     }
 }

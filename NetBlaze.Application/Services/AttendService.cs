@@ -54,7 +54,7 @@ namespace NetBlaze.Application.Services
 
             var existingDevice = await _unitOfWork
                 .Repository
-                .GetQueryable<UserDetails>()
+                .GetQueryable<UserCredential>()
                 .AsNoTracking()
                 .Where(u => u.UserId == userId && u.IsActive)
                 .FirstOrDefaultAsync(cancellationToken);

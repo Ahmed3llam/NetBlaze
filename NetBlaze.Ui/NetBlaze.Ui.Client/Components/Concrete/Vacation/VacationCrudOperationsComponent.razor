@@ -1,0 +1,75 @@
+﻿@using NetBlaze.SharedKernel.Dtos.Vacation.Responses
+
+<MudContainer MaxWidth="MaxWidth.Large" Class="mt-4">
+    <MudText Typo="Typo.h4" Class="mb-4">Vacation Management</MudText>
+
+    <MudPaper Class="pa-4 mb-4">
+        <MudGrid>
+            <MudItem xs="12" md="6">
+                <MudButton Variant="Variant.Filled"
+                           Color="Color.Primary"
+                           StartIcon="@Icons.Material.Filled.Add"
+                           OnClick="OpenAddDialogAsync">
+                    Add New Vacation
+                </MudButton>
+            </MudItem>
+            <MudItem xs="12" md="6" Class="d-flex justify-end">
+                <MudButton Variant="Variant.Outlined"
+                           StartIcon="@Icons.Material.Filled.Refresh"
+                           OnClick="LoadVacationsAsync"
+                           Disabled="@_isLoading">
+                    Refresh
+                </MudButton>
+            </MudItem>
+        </MudGrid>
+    </MudPaper>
+
+    <MudPaper Width="100%">
+        @if (_isLoading)
+        {
+            <MudProgressLinear Color="Color.Primary" Indeterminate="true" />
+        }
+
+        <MudList T="GetListedVacationResponseDto">
+            @if (_vacations != null && _vacations.Items != null && _vacations.Items.Any())
+            {
+                @foreach (var vacation in _vacations.Items)
+                {
+                    <MudListItem>
+                        <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                            <div>
+                                <MudText Typo="Typo.subtitle1">@vacation.VacationType</MudText>
+                            </div>
+                            <div>
+                                <MudText Typo="Typo.subtitle1">@vacation.Day</MudText>
+                            </div>
+                            <div>
+                                <MudText Typo="Typo.subtitle1">@vacation.VacationDate</MudText>
+                            </div>
+                            <div>
+                                <MudText Typo="Typo.subtitle1">@vacation.AlternativeDate</MudText>
+                            </div>
+                            <div>
+                                <MudIconButton Size="@Size.Small"
+                                               Icon="@Icons.Material.Filled.Edit"
+                                               Color="Color.Primary"
+                                               OnClick="@(() => OpenUpdateDialogAsync(vacation))" />
+                                <MudIconButton Size="@Size.Small"
+                                               Icon="@Icons.Material.Filled.Delete"
+                                               Color="Color.Error"
+                                               OnClick="@(() => DeleteSampleAsync(vacation.Id))" />
+                            </div>
+                        </div>
+                    </MudListItem>
+                    <MudDivider />
+                }
+            }
+            else if (!_isLoading)
+            {
+                <MudListItem>
+                    <MudAlert Severity="Severity.Info">No vacations found. Click "Add New Vacation" to create your first vacation.</MudAlert>
+                </MudListItem>
+            }
+        </MudList>
+    </MudPaper>
+</MudContainer>

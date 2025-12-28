@@ -7,7 +7,7 @@ namespace NetBlaze.Application.Interfaces.ServicesInterfaces
 {
     public interface IDepartmentService
     {
-        Task<ApiResponse<PaginatedList<BaseResponseDto>>> GetPaginatedDepartments(PaginateRequestDto paginateRequestDto);
-        IAsyncEnumerable<BaseResponseDto> GetListedDepartments();
+        Task<ApiResponse<PaginatedList<BaseResponseDto>>> GetPaginatedDepartmentsAsync(PaginateRequestDto paginateRequestDto);
+        Task<ApiResponse<List<BaseResponseDto>>> GetListedDepartmentsAsync();
     }
 }

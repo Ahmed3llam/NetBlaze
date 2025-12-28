@@ -73,7 +73,7 @@ div.mud-input-error > .me-auto {
 }
 
 html, body, .mud-layout {
-    height: 100%;
+    height: 100vh;
     margin: 0;
 }
 
@@ -140,3 +140,60 @@ html, body, .mud-layout {
 }
 
 /*************************** ERROR BAR ***************************/
+
+/*************************** LOGIN PAGE ***************************/
+
+.login-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: /*linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-dark-end) 100%)*/ linear-gradient(135deg, #3a3b3c 0%, #009bd9 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.login-form {
+    height: 60vh;
+    width: 70%;
+}
+
+.login-icon {
+    background: linear-gradient(135deg, #009bd9 0%, #3a3b3c 100%);
+    color: white;
+}
+
+.login-icon .fingerprint-icon {
+    font-size: 10rem;
+}
+
+/*************************** LOGIN PAGE ***************************/
+
+/*************************** REGISTERATION PAGE ***************************/
+
+.register-container {
+    min-height: max-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: linear-gradient(135deg, #3a3b3c 0%, #009bd9 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.register-form {
+    width: 70%;
+}
+
+.register-icon {
+    background: linear-gradient(135deg, #009bd9 0%, #3a3b3c 100%);
+    color: white;
+}
+
+.register-icon .fingerprint-icon {
+    font-size: 10rem;
+}
+
+/*************************** LOGIN PAGE ***************************/

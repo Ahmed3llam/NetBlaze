@@ -37,7 +37,7 @@ namespace NetBlaze.Domain.Entities.Identity
 
         public virtual Department Department { get; private set; }
 
-        public virtual UserDetails UserDetails { get; private set; }
+        public virtual UserCredential UserCredential { get; private set; }
 
         public User? Manager { get; private set; }
     }

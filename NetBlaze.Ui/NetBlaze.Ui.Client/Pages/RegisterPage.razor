@@ -1,108 +1,150 @@
 ﻿@page "/register"
+@using NetBlaze.Ui.Client.Components.Generic
+@using NetBlaze.Ui.Client.SharedRazor.Layouts
 
-<PageTitle>Register</PageTitle>
+@layout EmptyLayout
 
-<EditForm Model="registerUserRequestDto" OnValidSubmit="SubmitAsync">
-    <DataAnnotationsValidator />
-    <MudContainer MaxWidth="MaxWidth.Medium" Class="my-10">
-        <MudPaper Elevation="10" Class="pa-6">
-            <MudGrid>
-              <MudItem xs="4" Class="pa-4 mb-4">
-                    <MudItem Class="m-auto">
-                    <MudText Typo="Typo.h5" Align="Align.Center">Create Account</MudText>
-                    <MudText Typo="Typo.body2" Align="Align.Center" Color="Color.Secondary" Class="mb-4">
-                        Join us today! Enter your details below.
-                    </MudText>
-                </MudItem>
-                </MudItem>
-                <MudItem xs="8" Class="pa-4 mb-4">
-                    <MudText Typo="Typo.h5">Register</MudText>
-                    <MudItem xs="12">
-                        <MudTextField @bind-Value="registerUserRequestDto.FullName"
-                                        For="@(() => registerUserRequestDto.FullName)"
-                                        Label="FullName"
-                                        Variant="Variant.Outlined"
-                                        Immediate
-                                        Class="mb-3" />
+<PageTitle>@StaticLocalization.Register</PageTitle>
+
+<MudContainer MaxWidth="MaxWidth.ExtraExtraLarge" Class="h-100 register-container">
+    <EditForm Model="_model" class="register-form">
+        <DataAnnotationsValidator />
+        <MudContainer MaxWidth="MaxWidth.Large" Class="h-100">
+            <MudPaper Elevation="5" Class="h-100 rounded-xl">
+                <MudGrid Spacing="0" Justify="Justify.Center" AlignItems="AlignItems.Center" Class="h-100">
+                    <MudItem xs="12" sm="5" Class="pa-6 d-flex flex-column align-center justify-center rounded-l-xl register-icon">
+                        <MudIcon Icon="@Icons.Material.Rounded.Fingerprint" Title="Fingerprint" Class="fingerprint-icon" />
                     </MudItem>
+                    <MudItem xs="12" sm="7" Class="pa-6 d-flex flex-column align-center m-auto gap-2">
+                        <MudText Typo="Typo.h5" Align="Align.Center">
+                            @StaticLocalization.Register
+                        </MudText>
 
-                    <MudItem xs="12">
-                        <MudTextField @bind-Value="registerUserRequestDto.PhoneNumber"
-                                        For="@(() => registerUserRequestDto.PhoneNumber)"
-                                        Label="PhoneNumber"
-                                        Variant="Variant.Outlined"
-                                        Immediate
-                                        Class="mb-3" />
-                    </MudItem>
-
-                    <MudItem xs="12">
-                        <MudTextField @bind-Value="registerUserRequestDto.Email"
-                                            For="@(() => registerUserRequestDto.Email)"
-                                            Label="Email"
+                        <MudItem Class="w-75">
+                            <MudTextField @bind-Value="_model.FullName"
+                                            For="@(() => _model.FullName)"
+                                            Label="@StaticLocalization.FullName"
+                                            Required
                                             Variant="Variant.Outlined"
                                             Immediate
                                             Class="mb-3" />
-                    </MudItem>
+                        </MudItem>
 
-                    <MudItem xs="12">
-                        <MudTextField @bind-Value="registerUserRequestDto.Password"
-                                            For="@(() => registerUserRequestDto.Password)"
-                                            Label="Password"
-                                            InputType="InputType.Password"
+                        <MudItem Class="w-75">
+                            <MudTextField @bind-Value="_model.PhoneNumber"
+                                            For="@(() => _model.PhoneNumber)"
+                                          Label="@StaticLocalization.PhoneNumber"
+                                            Required
+                                            Variant="Variant.Outlined"
+                                            Immediate
+                                            Class="mb-3" />
+                        </MudItem>
+
+                        <MudItem Class="w-75">
+                            <MudTextField @bind-Value="_model.Email"
+                                            For="@(() => _model.Email)"
+                                          Label="@StaticLocalization.Email"
+                                            Required
+                                            Variant="Variant.Outlined"
+                                            Immediate
+                                            Class="mb-3" />
+                        </MudItem>
+
+                        <MudItem Class="w-75">
+                            <MudTextField @bind-Value="_model.Password"
+                                            For="@(() => _model.Password)"
+                                            Label="@StaticLocalization.Password"
+                                            Adornment="Adornment.End"
+                                            AdornmentIcon="@PasswordInputIcon"
+                                            OnAdornmentClick="TogglePasswordVisibility"
+                                            AdornmentAriaLabel="ShowPassword"
+                                            InputType="@PasswordInput"
                                             Format="F2"
+                                            Required
                                             Variant="Variant.Outlined"
                                             Immediate
                                             Class="mb-3" />
-                    </MudItem>
+                        </MudItem>
                 
-                    <MudItem xs="12">
-                        <MudTextField @bind-Value="registerUserRequestDto.ConfirmPassword"
-                                        For="@(() => registerUserRequestDto.ConfirmPassword)"
-                                        Label="Confirm Password"
-                                        InputType="InputType.Password"
-                                        Format="F2"
-                                        Variant="Variant.Outlined"
-                                        Immediate
-                                        Class="mb-3" />
-                    </MudItem>
+                        <MudItem Class="w-75">
+                            <MudTextField @bind-Value="_model.ConfirmPassword"
+                                            For="@(() => _model.ConfirmPassword)"
+                                            Label="@StaticLocalization.ConfirmPassword"
+                                            Adornment="Adornment.End"
+                                            AdornmentIcon="@PasswordInputIcon"
+                                            OnAdornmentClick="TogglePasswordVisibility"
+                                            AdornmentAriaLabel="ShowPassword"
+                                            InputType="@PasswordInput"
+                                            Format="F2"
+                                            Required
+                                            Variant="Variant.Outlined"
+                                            Immediate
+                                            Class="mb-3" />
+                        </MudItem>
 
-                    <MudItem xs="12">
-                        <MudSelect @bind-Value="registerUserRequestDto.RoleId"
-                                    For="@(() => registerUserRequestDto.RoleId)"
-                                    Label="Role"
-                                    Variant="Variant.Outlined"
-                                    Class="mb-3">
-                                <MudSelectItem Value="0L">--select--</MudSelectItem>
-                                @foreach (var role in _roles)
+                        <MudItem Class="w-75">
+                            <MudSelect @bind-Value="_model.RoleId"
+                                            For="@(() => _model.RoleId)"
+                                            Label="@StaticLocalization.Role"
+                                            Required
+                                            Variant="Variant.Outlined"
+                                            Class="mb-3">
+
+                                    <MudSelectItem Value="0L">@StaticLocalization.SelectItem</MudSelectItem>
+
+                                    @foreach (var role in _roles)
+                                    {
+                                        <MudSelectItem Value="role.Id">@role.Name</MudSelectItem>
+                                    }
+                            </MudSelect>
+                        </MudItem>
+
+                        <MudItem Class="w-75">
+                            <MudSelect @bind-Value="_model.DepartmentId"
+                                            For="@(() => _model.DepartmentId)"
+                                            Label="@StaticLocalization.Department"
+                                            Required
+                                            Variant="Variant.Outlined"
+                                            Class="mb-3">
+
+                                <MudSelectItem Value="0L">@StaticLocalization.SelectItem</MudSelectItem>
+
+                                @foreach (var department in _departments)
                                 {
-                                    <MudSelectItem Value="role.Id">@role.Name</MudSelectItem>
+                                    <MudSelectItem Value="department.Id">@department.Name</MudSelectItem>
                                 }
-                        </MudSelect>
+                            </MudSelect>
+                        </MudItem>
+
+                        <MudItem Class="w-75">
+                            <MudSelect @bind-Value="_model.ManagerId"
+                                           For="@(() => _model.ManagerId)"
+                                           Label="@StaticLocalization.Manager"
+                                           Variant="Variant.Outlined"
+                                           T="long?"
+                                           Placeholder="@StaticLocalization.SelectItem"
+                                           Class="mb-3">
+
+                                @* <MudSelectItem T="long?" Value="@(null)">@StaticLocalization.SelectItem</MudSelectItem> *@
+
+                                @foreach (var manager in _managers)
+                                {
+                                    <MudSelectItem T="long?" Value="manager.Id">@manager.Name</MudSelectItem>
+                                }
+                            </MudSelect>
+                        </MudItem>
+
+                        <MudItem Class="text-center w-75">
+                            <GenericLoadingButton Disabled="IsSubmitButtonDisabled"
+                                          Class="flex-fill"
+                                          OnClick="SubmitAsync"
+                                          ButtonText="@StaticLocalization.Register"
+                                          EndIcon="@Icons.Material.Filled.AppRegistration"
+                                          Type="ButtonType.Submit" />
+                        </MudItem>
                     </MudItem>
-
-                    <MudItem xs="12">
-                        <MudSelect @bind-Value="registerUserRequestDto.DepartmentId"
-                                    For="@(() => registerUserRequestDto.DepartmentId)"
-                                    Label="Department"
-                                    Variant="Variant.Outlined"
-                                    Class="mb-3">
-                            <MudSelectItem Value="0L">--select--</MudSelectItem>
-
-                            @foreach (var department in _departments)
-                            {
-                                <MudSelectItem Value="department.Id">@department.Name</MudSelectItem>
-                            }
-                        </MudSelect>
-                    </MudItem> 
-
-                    <MudButton ButtonType="ButtonType.Submit"
-                            Color="Color.Primary"
-                            Variant="Variant.Filled">
-                            Register
-                    </MudButton>
-                </MudItem>
-            </MudGrid>
-        </MudPaper>
-    </MudContainer>
-</EditForm>
-
+                </MudGrid>
+            </MudPaper>
+        </MudContainer>
+    </EditForm>
+</MudContainer>

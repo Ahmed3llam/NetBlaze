@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using MudBlazor.Services;
 using NetBlaze.SharedKernel.HelperUtilities.Constants;
+using NetBlaze.SharedKernel.HelperUtilities.General;
 using NetBlaze.Ui.Client.InternalHelperTypes.General;
 using NetBlaze.Ui.Client.Services;
 using NetBlaze.Ui.Client.Services.CommonServices;
@@ -34,6 +35,7 @@ namespace NetBlaze.Ui.Client.Extensions
 
             services.AddScoped<CookieService>();
 
+            services.AddScoped<GlobalUserContext>();
 
             // ADD BLAZOR SERVICES HERE:
 
@@ -41,6 +43,8 @@ namespace NetBlaze.Ui.Client.Extensions
             services.AddScoped<BlazAuthService>();
             services.AddScoped<BlazDepartmentService>();
             services.AddScoped<BlazRolesService>();
+            services.AddScoped<BlazUserService>();
+            services.AddScoped<BlazVacationService>();
         }
 
         public static async Task ConsumeClientServicesAsync(this WebAssemblyHost app)

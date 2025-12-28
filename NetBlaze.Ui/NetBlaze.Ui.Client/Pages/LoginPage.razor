@@ -1,58 +1,57 @@
-﻿@page "/login"
+﻿@page "/loginPage"
+@using NetBlaze.Ui.Client.Components.Generic
+@using NetBlaze.Ui.Client.SharedRazor.Layouts
 
-<PageTitle>Login</PageTitle>
+@layout EmptyLayout
 
-<EditForm Model="loginUserRequestDto" OnValidSubmit="Login">
-    <DataAnnotationsValidator />
-    <MudContainer MaxWidth="MaxWidth.Medium" Class="my-10">
-        <MudPaper Elevation="10" Class="pa-6">
-            <MudGrid>
-                <MudItem xs="4" Class="pa-4 mb-4">
-                    <MudItem Class="m-auto">
-                        <MudText Typo="Typo.h5" Align="Align.Center">Login To Account</MudText>
-                        <MudText Typo="Typo.body2" Align="Align.Center" Color="Color.Secondary" Class="mb-4">
-                            Join us today! Enter your details below.
+<PageTitle>@StaticLocalization.Login</PageTitle>
+
+<MudContainer MaxWidth="MaxWidth.ExtraExtraLarge" Class="h-100 login-container">
+    <EditForm Model="loginUserRequestDto" class="login-form">
+        <DataAnnotationsValidator />
+        <MudContainer MaxWidth="MaxWidth.Large" Class="h-100">
+            <MudPaper Elevation="5" Class="h-100 rounded-xl">
+                <MudGrid Spacing="0" Justify="Justify.Center" AlignItems="AlignItems.Center" Class="h-100">
+                    <MudItem xs="12" sm="5" Class="pa-6 d-flex flex-column align-center justify-center rounded-l-xl login-icon">
+                        <MudIcon Icon="@Icons.Material.Rounded.Fingerprint" Title="Fingerprint" Class="fingerprint-icon" />
+                    </MudItem>
+
+                    <MudItem xs="12" sm="7" Class="pa-6 d-flex flex-column align-center m-auto gap-2">
+                        <MudText Typo="Typo.h5" Align="Align.Center">
+                            @StaticLocalization.Login
                         </MudText>
+
+                        <MudItem Class="w-75">
+                            <MudTextField @bind-Value="loginUserRequestDto.Email"
+                                          For="@(() => loginUserRequestDto.Email)"
+                                          Label="@StaticLocalization.Email"
+                                          Variant="Variant.Outlined"
+                                          Immediate />
+                        </MudItem>
+                        <MudItem Class="w-75">
+                            <MudTextField @bind-Value="loginUserRequestDto.Password"
+                                          For="@(() => loginUserRequestDto.Password)"
+                                          Label="@StaticLocalization.Password"
+                                          Adornment="Adornment.End"
+                                          AdornmentIcon="@PasswordInputIcon"
+                                          OnAdornmentClick="TogglePasswordVisibility"
+                                          AdornmentAriaLabel="ShowPassword"
+                                          InputType="@PasswordInput"
+                                          Variant="Variant.Outlined"
+                                          Immediate />
+                        </MudItem>
+
+                        <MudItem Class="text-center w-75">
+                            <GenericLoadingButton Disabled="IsSubmitButtonDisabled"
+                                          Class="flex-fill"
+                                          OnClick="Login"
+                                          ButtonText="@StaticLocalization.Login"
+                                          EndIcon="@Icons.Material.Filled.Login"
+                                          Type="ButtonType.Submit" />
+                        </MudItem>
                     </MudItem>
-                </MudItem>
-                <MudItem xs="8" Class="pa-4 mb-4">
-                    <MudText Typo="Typo.h5">Login</MudText>
-
-                    <MudItem xs="12">
-                        <MudTextField @bind-Value="loginUserRequestDto.Email"
-                                      For="@(() => loginUserRequestDto.Email)"
-                                      Label="Email"
-                                      Variant="Variant.Outlined"
-                                      Immediate
-                                      Class="mb-3" />
-                    </MudItem>
-
-                    <MudItem xs="12">
-                        <MudTextField @bind-Value="loginUserRequestDto.Password"
-                                      For="@(() => loginUserRequestDto.Password)"
-                                      Label="Password"
-                                      InputType="InputType.Password"
-                                      Variant="Variant.Outlined"
-                                      Format="F2"
-                                      Immediate
-                                      Class="mb-3" />
-                    </MudItem>
-
-                    @* <MudItem xs="12">
-                        <MudCheckBox @bind-Value="loginUserRequestDto.RememberMe"
-                                    For="@(() => loginUserRequestDto.RememberMe)"
-                                    Label="RememberMe"
-                                    Color="Color.Primary"></MudCheckBox>
-                    </MudItem> *@
-
-                    <MudButton ButtonType="ButtonType.Submit"
-                               Color="Color.Primary"
-                               Variant="Variant.Filled">
-                        Login
-                    </MudButton>
-                </MudItem>
-            </MudGrid>
-        </MudPaper>
-    </MudContainer>
-</EditForm>
-
+                </MudGrid>
+            </MudPaper>
+        </MudContainer>
+    </EditForm>
+</MudContainer>

@@ -17,7 +17,7 @@ namespace NetBlaze.Application.Services
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<ApiResponse<PaginatedList<BaseResponseDto>>> GetPaginatedDepartments(PaginateRequestDto paginateRequestDto)
+        public async Task<ApiResponse<PaginatedList<BaseResponseDto>>> GetPaginatedDepartmentsAsync(PaginateRequestDto paginateRequestDto)
         {
             var listedDepartments = _unitOfWork
                 .Repository
@@ -32,20 +32,17 @@ namespace NetBlaze.Application.Services
             return ApiResponse<PaginatedList<BaseResponseDto>>.ReturnSuccessResponse(result);
         }
 
-        public async IAsyncEnumerable<BaseResponseDto> GetListedDepartments()
+        public async Task<ApiResponse<List<BaseResponseDto>>> GetListedDepartmentsAsync()
         {
-            var listedDepartments = _unitOfWork
+            var listedDepartments = await _unitOfWork
                 .Repository
-                .GetMultipleStream<Department, BaseResponseDto>(
+                .GetMultipleAsync<Department, BaseResponseDto>(
                     true,
                     x => x.IsActive,
                     x => new BaseResponseDto(x.Id, x.Name, x.IsActive)
                 );
 
-            await foreach (var department in listedDepartments)
-            {
-                yield return department;
-            }
+            return ApiResponse<List<BaseResponseDto>>.ReturnSuccessResponse(listedDepartments);
         }
     }
 }

@@ -129,4 +129,52 @@
   <data name="AllRightsReserved" xml:space="preserve">
     <value>جميع الحقوق محفوظة</value>
   </data>
+  <data name="FullName" xml:space="preserve">
+    <value>الاسم</value>
+  </data>
+  <data name="PhoneNumber" xml:space="preserve">
+    <value>رقم الهاتف</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>البريد الإلكتروني</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>كلمة المرور</value>
+  </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>تأكيد كلمة المرور</value>
+  </data>
+  <data name="Manager" xml:space="preserve">
+    <value>المدير</value>
+  </data>
+  <data name="Role" xml:space="preserve">
+    <value>الدور</value>
+  </data>
+  <data name="Department" xml:space="preserve">
+    <value>القسم</value>
+  </data>
+  <data name="SelectItem" xml:space="preserve">
+    <value>--اختر--</value>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>تسجيل حساب جديد</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>تسجيل الدخول</value>
+  </data>
+  <data name="InitializingPleaseWait" xml:space="preserve">
+    <value>جاري التحميل، يرجى الانتظار...</value>
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value>إرسال</value>
+  </data>
+  <data name="FidoOptionsNotAvailable" xml:space="preserve">
+    <value>خيارات التسجيل غير متوفرة</value>
+  </data>
+  <data name="FidoRegistrationFailed" xml:space="preserve">
+    <value>فشل في تسجيل FIDO</value>
+  </data>
+  <data name="FidoDataReadFailed" xml:space="preserve">
+    <value>فشل قراءة بيانات FIDO</value>
+  </data>
 </root>
